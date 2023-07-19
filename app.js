@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
+const authRouter = require("./routes/auth");
 require("dotenv").config();
 
 // const {tasksRouter, authRouter} = require("./routes/api");
@@ -14,10 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/users", (req, res) => {
-  console.log(req);
-  res.status(200).json({ msg: "OK" });
-});
+app.use("/api/users", authRouter);
 // app.use('/tasks', tasksRouter);
 
 app.use((req, res) => {
