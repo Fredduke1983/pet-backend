@@ -1,5 +1,6 @@
 const express = require("express");
-const {signup, login} = require("../controllers/auth");
+const { register, login, logout, currentUser } = require("../controllers/auth");
+const authenicate = require("../middlewares/authenicate");
 
 // const ctrlWrapper = require("../utils/ctrlWrapper");
 
@@ -9,20 +10,20 @@ const {signup, login} = require("../controllers/auth");
 
 const router = express.Router();
 
-router.post("/signup", signup);
+router.post("/register", register);
 
 router.post("/login", login);
 
-// router.get(
-//   "/current",
-//   authenicate,
-//   ctrl.getCurrent
-// );
+router.post(
+  "/logout",
+  authenicate,
+  logout
+);
 
-// router.post(
-//   "/logout",
-//   authenicate,
-//   ctrl.logout
-// );
+router.get(
+  "/current",
+  authenicate,
+  currentUser
+);
 
 module.exports = router;
