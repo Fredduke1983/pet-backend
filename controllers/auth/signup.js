@@ -2,8 +2,8 @@ const { User } = require("../../models/userSchema");
 const { HttpError } = require("../../utils/HttpError");
 const bcrypt = require("bcrypt");
 const fs = require("fs/promises");
-const path = require('path');
-const ctrlWrapper = require("../../utils/ctrlWrapper");
+const path = require("path");
+// const ctrlWrapper = require("../../utils/ctrlWrapper");
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const signup = async (req, res, next) => {
@@ -21,10 +21,6 @@ const signup = async (req, res, next) => {
 
   res.status(201).json({ name: newUser.name, email: newUser.email });
 };
-
-
-
-
 
 const updatePets = async (req, res) => {
   const { _id } = req.user;
@@ -47,4 +43,4 @@ const updatePets = async (req, res) => {
   });
 };
 
-module.exports = { signup, updatePets:ctrlWrapper(updatePets) };
+module.exports = signup;

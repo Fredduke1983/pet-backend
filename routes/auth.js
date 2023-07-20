@@ -1,6 +1,5 @@
 const express = require("express");
-const {signup} = require("../controllers/auth/signup");
-
+const {signup, login} = require("../controllers/auth");
 
 // const ctrlWrapper = require("../utils/ctrlWrapper");
 
@@ -11,15 +10,8 @@ const {signup} = require("../controllers/auth/signup");
 const router = express.Router();
 
 router.post("/signup", signup);
-// router.post("/login", )
 
-
-
-// router.post(
-//   "/login",
-//   validateBody(schemas.loginSchema),
-//   ctrl.login
-// );
+router.post("/login", login);
 
 // router.get(
 //   "/current",
