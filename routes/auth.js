@@ -1,5 +1,6 @@
 const express = require("express");
-const signup = require("../controllers/auth/signup");
+const {signup} = require("../controllers/auth/signup");
+
 
 // const ctrlWrapper = require("../utils/ctrlWrapper");
 
@@ -10,6 +11,9 @@ const signup = require("../controllers/auth/signup");
 const router = express.Router();
 
 router.post("/signup", signup);
+// router.post("/login", )
+
+
 
 // router.post(
 //   "/login",

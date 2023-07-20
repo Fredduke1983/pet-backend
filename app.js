@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
 const authRouter = require("./routes/auth");
+const petRouter = require('./routes/pets')
 require("dotenv").config();
 
 // const {tasksRouter, authRouter} = require("./routes/api");
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
-// app.use('/tasks', tasksRouter);
+app.use('/api/pets', petRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
