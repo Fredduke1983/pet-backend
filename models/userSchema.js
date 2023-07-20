@@ -1,6 +1,24 @@
 const { Schema, model } = require("mongoose");
-// const { handleMongooseError } = require("../utils/handleMongooseError");
-// const Joi = require("joi");
+// const { handleMongooseError } = require("../utils");
+
+const petSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  birthday: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
+    required: true,
+  },
+});
 
 const userSchema = new Schema(
   {
@@ -17,6 +35,19 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Set password for user"],
     },
+    avatar: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    birthday: {
+      type: String,
+    },
+    pets: [petSchema],
     token: String,
   },
   { versionKey: false }
@@ -24,25 +55,8 @@ const userSchema = new Schema(
 
 // userSchema.post("save", handleMongooseError);
 
-// const registrationSchema = Joi.object({
-//   password: Joi.string().required(),
-//   email: Joi.string().required(),
-//   subscription: Joi.string(),
-// });
-
-// const loginSchema = Joi.object({
-//   password: Joi.string().required(),
-//   email: Joi.string().required(),
-// });
-
-// const schemas = {
-//   registrationSchema,
-//   loginSchema,
-// };
-
 const User = model("user", userSchema);
 
 module.exports = {
   User,
-  // schemas,
 };
