@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const handleMongooseError = require("../utils/handleMongooseError");
 
-const petSchema = new Schema(
+const noticesSchema = new Schema(
   {
     name: String,
     place: String,
@@ -9,12 +9,17 @@ const petSchema = new Schema(
     type: String,
     sex: String,
     avatar: String,
+    favorite: {
+      type: Boolean,
+      default: false
+    }
   },
+
 
   { versionKey: false }
 );
 
 // petSchema.post("save", handleMongooseError);
-const Pet = model("pet", petSchema);
+const Notice = model("pet", noticesSchema);
 
-module.exports = Pet;
+module.exports = Notice;
