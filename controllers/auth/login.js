@@ -31,7 +31,7 @@ const login = ctrlWrapper(async (req, res, next) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "30d" });
-  await User.findByIdAndUpdate(value._id, { token });
+  await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
     name,
