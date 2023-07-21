@@ -30,9 +30,9 @@ const updateUser = ctrlWrapper(async (req, res) => {
 
     const userUpdate = await User.findOneAndUpdate(
       { _id: id },
-      { avatarUser: newLinkToAvatar },
+      // { avatarUser: newLinkToAvatar },
 
-      { ...req.body },
+      { ...req.body, avatarUser: newLinkToAvatar },
       {
         new: true,
       }
