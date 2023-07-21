@@ -1,17 +1,15 @@
 const jwt = require("jsonwebtoken");
-
 const { User } = require("../models/userSchema");
-
-const { HttpError } = require("../utils/HttpError");
+const { HttpError, ctrlWrapper } = require("../utils");
 
 const { SECRET_KEY } = process.env;
 
-const authenicate = async (req, res, next) => {
+const authenticate = ctrlWrapper(async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
 
   if (bearer !== "Bearer") {
-    next(HttpError(401, "You do not have access to the database"));
+    throw HttpError(401, "You do not have access to the database");
   }
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
@@ -23,8 +21,8 @@ const authenicate = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    next(HttpError(401, "Unvalid token"));
+    next(HttpError(401, "Invalid token"));
   }
-};
+});
 
-module.exports = authenicate;
+module.exports = authenticate;

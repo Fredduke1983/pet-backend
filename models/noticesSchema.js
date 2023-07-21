@@ -11,15 +11,14 @@ const noticesSchema = new Schema(
     avatar: String,
     favorite: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-
 
   { versionKey: false }
 );
 
-// petSchema.post("save", handleMongooseError);
-const Notice = model("pet", noticesSchema);
+noticesSchema.post("save", handleMongooseError);
+const Notice = model("notices", noticesSchema);
 
 module.exports = Notice;

@@ -1,0 +1,100 @@
+[{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab07"
+  },
+  "name": "Alex",
+  "place": "Lviv",
+  "birthday": "10-03-2019",
+  "type": "pomeranian",
+  "sex": "male",
+  "avatar": "https://random.dog/08f5398d-7f89-47da-a5cd-1ed74967dc1f.jpg",
+  "favorite": false
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab08"
+  },
+  "name": "Rica",
+  "place": "Dnipro",
+  "birthday": "10-03-2009",
+  "type": "bulldog",
+  "sex": "female",
+  "avatar": "https://random.dog/8aff4e84-260d-4af0-9dc1-438d07ba3884.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab09"
+  },
+  "name": "Rem",
+  "place": "Hogwards",
+  "birthday": "10-03-1999",
+  "type": "dvorova",
+  "sex": "male",
+  "avatar": "https://random.dog/dfcd6aad-2519-42ca-adbb-2b157ac57b9f.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0a"
+  },
+  "name": "Gina",
+  "place": "Ivano-Frankivsk",
+  "birthday": "03-09-2017",
+  "type": "koker",
+  "sex": "male",
+  "avatar": "https://random.dog/b5546559-7090-41cd-aef6-e830c2206f8d.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0b"
+  },
+  "name": "Tom",
+  "place": "Kherson",
+  "birthday": "03-11-2021",
+  "type": "labrador",
+  "sex": "female",
+  "avatar": "https://random.dog/7d76ab15-5cc1-4684-aa82-568617fed752.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0c"
+  },
+  "name": "Popy",
+  "place": "Kharkiv",
+  "birthday": "13-11-2020",
+  "type": "pitbul",
+  "sex": "female",
+  "avatar": "https://random.dog/1b3ae141-ba4a-4c49-bdbc-487784f7430f.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0d"
+  },
+  "name": "Spike",
+  "place": "Lviv",
+  "birthday": "10-03-2019",
+  "type": "pomeranian",
+  "sex": "male",
+  "avatar": "https://random.dog/08f5398d-7f89-47da-a5cd-1ed74967dc1f.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0e"
+  },
+  "name": "Torry",
+  "place": "Berlin",
+  "birthday": "09-05-2019",
+  "type": "bulldog",
+  "sex": "male",
+  "avatar": "https://random.dog/c02c5d84-1c14-47bb-b4de-399665d5653c.jpg"
+},
+{
+  "_id": {
+    "$oid": "64b8729a7bbc27865b2bab0f"
+  },
+  "name": "Rich",
+  "place": "Dnipro",
+  "birthday": "02-07-2014",
+  "type": "dog",
+  "sex": "male",
+  "avatar": "https://random.dog/8536-28743-5665.jpg"
+}]

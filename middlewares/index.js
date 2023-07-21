@@ -1,9 +1,8 @@
-const upload = require("./upload")
+const authenticate = require("./authenticate");
+const { uniqueUserValidate, isEmailExist } = require("./userMiddlewares");
 
-
-
-
-
-module.exports ={
-    upload,
-}
+module.exports = {
+  authenticate,
+  uniqueUserValidate,
+  isEmailExist,
+};
