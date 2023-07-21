@@ -10,7 +10,7 @@ dotenv.config();
 const { SECRET_KEY } = process.env;
 
 const login = ctrlWrapper(async (req, res, next) => {
-  const { error, value } = userSigninValidator(req.body);
+  const { error } = userSigninValidator(req.body);
 
   if (error) {
     throw HttpError(409, "Wrong data");

@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-// const { handleMongooseError } = require("../utils");
+const { handleMongooseError } = require("../utils");
 
 const petSchema = new Schema({
   name: {
@@ -48,13 +48,13 @@ const userSchema = new Schema(
       type: String,
     },
     pets: [petSchema],
+
     token: String,
   },
   { versionKey: false }
 );
 
-// userSchema.post("save", handleMongooseError);
-
+userSchema.post("save", handleMongooseError);
 const User = model("user", userSchema);
 
 module.exports = {
