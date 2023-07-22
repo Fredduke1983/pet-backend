@@ -1,10 +1,6 @@
 const { Schema, model } = require("mongoose");
 const mongoose = require("mongoose");
 const handleMongooseError = require("../utils/handleMongooseError");
-const { currentUser } = require("../controllers/auth");
-
-const currentTestUser = currentUser;
-console.log(currentTestUser);
 
 const noticesSchema = new mongoose.Schema(
   {
