@@ -6,11 +6,13 @@ const {
   deleteNotices,
   updateNotices,
   updateFavorite,
+  getNoticesWithSearchParams,
 } = require("../controllers/notices/notices");
 
 const router = express.Router();
 
 router.get("/getall", getAllNotices);
+router.get("/search", getNoticesWithSearchParams)
 router.get("/:id", getById);
 router.post("/", addNotices);
 router.delete("/:id", deleteNotices);
