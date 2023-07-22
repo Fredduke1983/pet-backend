@@ -5,6 +5,7 @@ const {
   logout,
   currentUser,
   updateUser,
+  getUserById,
 } = require("../controllers/auth");
 const authenticate = require("../middlewares/authenticate");
 const {
@@ -19,6 +20,7 @@ router.post("/register", uniqueUserValidate, register);
 router.post("/login", isEmailExist, login);
 router.post("/logout", authenticate, logout);
 router.get("/current", authenticate, currentUser);
+router.get("/:id", getUserById);
 router.patch("/:id", uploadFile(), updateUser);
 
 module.exports = router;
