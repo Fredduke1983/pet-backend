@@ -1,6 +1,7 @@
 const { HttpError } = require("../../utils/HttpError");
 const Notice = require("../../models/noticesSchema");
 
+
 const getAllNotices = async (req, res) => {
   const notices = await Notice.find();
 
@@ -24,9 +25,11 @@ const getById = async (req, res) => {
 };
 
 const addNotices = async (req, res) => {
-  const notices = await Notice.create(req.body);
+  const { _id: owner } = req.user;
 
-  res.status(200).json(notices);
+  const notice = await Notice.create({ ...req.body, owner });
+
+  res.status(200).json(notice);
 };
 
 const deleteNotices = async (req, res) => {
