@@ -1,24 +1,33 @@
 const express = require("express");
+
 const {
   getAllNotices,
   getById,
+  getNoticesUser,
+  getNoticesWithSearchParams,
   addNotices,
   deleteNotices,
   updateNotices,
   updateFavorite,
-  getNoticesWithSearchParams,
-} = require("../controllers/notices/notices");
+  favoriteDelete,
+} = require("../controllers/notices");
+
+const { authenticate } = require("../middlewares");
 
 const router = express.Router();
 
 router.get("/getall", getAllNotices);
-router.get("/search", getNoticesWithSearchParams)
 router.get("/:id", getById);
-router.post("/", addNotices);
-router.delete("/:id", deleteNotices);
-router.patch("/:id", updateNotices);
-router.patch("/favorite/:id", updateFavorite);
 
-// router.patch("/", upload.single("avatar"), updatePets);
+router.get("/noticesuser", authenticate, getNoticesUser);
+router.get("/search", getNoticesWithSearchParams);
+
+router.post("/", addNotices);
+
+router.delete("/delnotice/:id", authenticate, deleteNotices);
+
+router.patch("/:id", updateNotices);
+router.patch("/favorite/:id", authenticate, updateFavorite);
+router.patch("/favoritedelete/:id", authenticate, favoriteDelete);
 
 module.exports = router;
