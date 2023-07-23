@@ -1,50 +1,65 @@
-const pathLib = require("path");
 const fs = require("fs").promises;
-const jimp = require("jimp");
-
-const { ctrlWrapper, formatDate } = require("../../utils");
+const cloudinary = require("cloudinary").v2;
+const { ctrlWrapper, HttpError } = require("../../utils");
 const { User } = require("../../models/userSchema");
 
 const updateUser = ctrlWrapper(async (req, res) => {
-  const destination = pathLib.join(__dirname, "..", "..", "public", "avatars");
-  // console.log(Object.keys(req.body).length === 0);
+  const { CLOUDE_NAME, API_KEY, API_SECRET } = process.env;
+  cloudinary.config({
+    cloud_name: CLOUDE_NAME,
+    api_key: API_KEY,
+    api_secret: API_SECRET,
+  });
 
-  const { id } = req.params;
+  const objBody = { ...req.body };
+  const objFile = { ...req.file };
 
-  const user = await User.findById(id);
+  let newLinkToAvatar = req.user.avatar != null ? req.user.avatar : null;
 
-  if (req.file) {
-    const { id, name } = user;
-    const { file } = req;
-    const { path } = file;
-
-    const img = await jimp.read(path);
-    img.autocrop().cover(250, 250).writeAsync(path);
-
-    const currentDate = new Date();
-    const formattedDate = formatDate(currentDate);
-    const newName = `${name.toLowerCase()}${formattedDate}.jpg`;
-
-    const newLinkToAvatar = pathLib.join(destination, newName);
-
-    await fs.rename(path, newLinkToAvatar);
-
-    const userUpdate = await User.findOneAndUpdate(
-      { _id: id },
-      { ...req.body, avatarUser: newLinkToAvatar },
-      {
-        new: true,
-      }
-    );
-    res.status(200).json({
-      userUpdate,
-      petsLenght: userUpdate.pets.length,
-    });
-    return;
+  if (!Object.keys(objBody).length && !Object.keys(objFile).length) {
+    throw HttpError(400, "No data");
   }
 
-  res.status(400).json({
-    message: "Something wrong...",
+  const currentUserId = req.user.id;
+
+  const currentUser = await User.findById(currentUserId);
+
+  const { id } = currentUser;
+  const { file = null } = req;
+
+  if (file) {
+    const { path } = file;
+
+    const uploadOptions = {
+      public_id: "avatarUser",
+      width: 100,
+      height: 100,
+      gravity: "auto",
+      crop: "fill",
+    };
+
+    await cloudinary.uploader.upload(path, uploadOptions, (error, result) => {
+      if (error) {
+        HttpError(400, "Uploads error");
+      } else {
+        newLinkToAvatar = result.url;
+        console.log("The file has been successfully uploaded to Cloudinary:");
+      }
+    });
+    await fs.unlink(path);
+  }
+
+  const userUpdate = await User.findOneAndUpdate(
+    { _id: id },
+    { ...req.body, avatar: newLinkToAvatar },
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json({
+    userUpdate,
+    petsLenght: userUpdate.pets.length,
   });
 });
 
