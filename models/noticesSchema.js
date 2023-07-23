@@ -65,3 +65,41 @@ noticesSchema.post("save", handleMongooseError);
 const Notice = model("notice", noticesSchema);
 
 module.exports = Notice;
+
+// const userSchema = new Schema(
+//   {
+//     name: {
+//       type: String,
+//       required: [true, "Set username"],
+//     },
+//     email: {
+//       type: String,
+//       required: [true, "Email is required"],
+//       unique: true,
+//     },
+//     password: {
+//       type: String,
+//       required: [true, "Set password for user"],
+//     },
+//     avatar: {
+//       type: String,
+//     },
+//     phone: {
+//       type: String,
+//     },
+//     city: {
+//       type: String,
+//     },
+//     birthday: {
+//       type: String,
+//     },
+//     pets: [petSchema],
+//     favorites: [
+//       {
+//         type: String,
+//       },
+//     ],
+//     token: String,
+//   },
+//   { versionKey: false }
+// );

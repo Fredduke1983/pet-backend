@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../utils");
+const { array } = require("joi");
 
 const petSchema = new Schema({
   name: {
@@ -48,6 +49,11 @@ const userSchema = new Schema(
       type: String,
     },
     pets: [petSchema],
+    favorites: [
+      {
+        type: String,
+      },
+    ],
 
     token: String,
   },
