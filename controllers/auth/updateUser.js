@@ -7,6 +7,7 @@ const { User } = require("../../models/userSchema");
 
 const updateUser = ctrlWrapper(async (req, res) => {
   const destination = pathLib.join(__dirname, "..", "..", "public", "avatars");
+  // console.log(Object.keys(req.body).length === 0);
 
   const { id } = req.params;
 
@@ -30,8 +31,6 @@ const updateUser = ctrlWrapper(async (req, res) => {
 
     const userUpdate = await User.findOneAndUpdate(
       { _id: id },
-      // { avatarUser: newLinkToAvatar },
-
       { ...req.body, avatarUser: newLinkToAvatar },
       {
         new: true,

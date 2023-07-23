@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const { ctrlWrapper, HttpError } = require("../utils");
 
-const uploadFile = (req, res, next) => {
+const uploadFile = () => {
   const tempDir = path.join(__dirname, "..", "temp");
   const multerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
