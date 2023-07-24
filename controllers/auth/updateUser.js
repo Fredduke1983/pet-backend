@@ -1,9 +1,9 @@
 const fs = require("fs").promises;
 const cloudinary = require("cloudinary").v2;
-const { ctrlWrapper, HttpError } = require("../../utils");
+const { HttpError } = require("../../utils");
 const { User } = require("../../models/userSchema");
 
-const updateUser = ctrlWrapper(async (req, res) => {
+const updateUser = async (req, res) => {
   const { CLOUDE_NAME, API_KEY, API_SECRET } = process.env;
   cloudinary.config({
     cloud_name: CLOUDE_NAME,
@@ -61,6 +61,6 @@ const updateUser = ctrlWrapper(async (req, res) => {
     userUpdate,
     petsLenght: userUpdate.pets.length,
   });
-});
+};
 
 module.exports = updateUser;

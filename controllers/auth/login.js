@@ -4,12 +4,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const dotenv = require("dotenv");
-const { userSigninValidator, ctrlWrapper } = require("../../utils");
+const { userSigninValidator } = require("../../utils");
 dotenv.config();
 
 const { SECRET_KEY } = process.env;
 
-const login = ctrlWrapper(async (req, res, next) => {
+const login = async (req, res, next) => {
   const { error } = userSigninValidator(req.body);
 
   if (error) {
@@ -38,6 +38,6 @@ const login = ctrlWrapper(async (req, res, next) => {
     email,
     token,
   });
-});
+};
 
 module.exports = login;
