@@ -1,5 +1,4 @@
-const HttpError = require("../../utils/HttpError");
-const Notice = require("../../models/noticesSchema");
+const {User }= require("../../models/userSchema");
 
 const updateFavoriteDelete = async (req, res) => {
   const { id } = req.params;
