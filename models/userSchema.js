@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../utils");
-const { array } = require("joi");
 
 const petSchema = new Schema({
   name: {
