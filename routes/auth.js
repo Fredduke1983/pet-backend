@@ -1,12 +1,6 @@
 const express = require("express");
-const {
-  register,
-  login,
-  logout,
-  currentUser,
-  updateUser,
-  getUserById,
-} = require("../controllers/auth");
+const ctrl = require("../controllers/auth");
+
 const authenticate = require("../middlewares/authenticate");
 const {
   uniqueUserValidate,
@@ -16,11 +10,11 @@ const {
 
 const router = express.Router();
 
-router.post("/register", uniqueUserValidate, register);
-router.post("/login", isEmailExist, login);
-router.post("/logout", authenticate, logout);
-router.get("/current", authenticate, currentUser);
-router.get("/:id", getUserById);
-router.patch("/update", authenticate, uploadFile(), updateUser);
+router.post("/register", uniqueUserValidate, ctrl.register);
+router.post("/login", isEmailExist, ctrl.login);
+router.post("/logout", authenticate, ctrl.logout);
+router.get("/current", authenticate, ctrl.currentUser);
+router.get("/:id", ctrl.getUserById);
+router.patch("/update", authenticate, uploadFile(), ctrl.updateUser);
 
 module.exports = router;

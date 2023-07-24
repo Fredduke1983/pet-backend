@@ -1,8 +1,8 @@
 const { User } = require("../../models/userSchema");
 const bcrypt = require("bcrypt");
-const { ctrlWrapper, HttpError, userSignupValidator } = require("../../utils");
+const { HttpError, userSignupValidator } = require("../../utils");
 
-const register = ctrlWrapper(async (req, res, next) => {
+const register = async (req, res, next) => {
   const { password } = req.body;
 
   const { error, value } = userSignupValidator(req.body);
@@ -16,6 +16,6 @@ const register = ctrlWrapper(async (req, res, next) => {
   await User.create({ ...req.body, password: hashPassword });
 
   res.status(201).json({ ...value, password: hashPassword });
-});
+};
 
 module.exports = register;
