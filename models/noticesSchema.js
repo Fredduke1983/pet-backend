@@ -6,15 +6,15 @@ const noticesSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      // required: true,
     },
     breed: {
       type: String,
-      required: true,
+      // required: true,
     },
     place: {
       type: String,
-      required: true,
+      // required: true,
     },
     imgUrl: {
       type: String,
@@ -23,23 +23,23 @@ const noticesSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     text: {
       type: String,
-      required: true,
+      // required: true,
     },
     birthday: {
       type: String,
-      required: true,
+      // required: true,
     },
     category: {
       type: String,
-      required: true,
+      // required: true,
     },
     sex: {
       type: String,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,

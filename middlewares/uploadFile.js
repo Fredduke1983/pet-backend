@@ -21,7 +21,7 @@ const uploadFile = () => {
     }
   });
 
-  const fileSizeLimit = { fileSize: 2 * 1024 * 1024 };
+  const fileSizeLimit = { fileSize: 3 * 1024 * 1024 };
 
   return multer({
     storage: multerStorage,

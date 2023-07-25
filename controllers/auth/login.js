@@ -18,7 +18,7 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  const { name } = user;
+  const { name, _id } = user;
 
   const passwordCompare = await bcrypt.compare(password, user.password);
 
@@ -34,6 +34,7 @@ const login = async (req, res, next) => {
   await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
+    _id,
     name,
     email,
     token,

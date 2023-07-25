@@ -16,6 +16,7 @@ router.post("/login", isEmailExist, ctrl.login);
 router.post("/logout", authenticate, ctrl.logout);
 router.get("/current", authenticate, ctrl.currentUser);
 router.patch("/update", authenticate, uploadFile(), ctrl.updateUser);
+
 router.get("/:id", ctrl.getUserById);
 
 module.exports = router;

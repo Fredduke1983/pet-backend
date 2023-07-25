@@ -31,9 +31,9 @@ const updateUser = async (req, res) => {
     const { path } = file;
 
     const uploadOptions = {
-      public_id: "avatarUser",
-      width: 100,
-      height: 100,
+      public_id: `avatarUser${id}`,
+      width: 182,
+      height: 182,
       gravity: "auto",
       crop: "fill",
     };
