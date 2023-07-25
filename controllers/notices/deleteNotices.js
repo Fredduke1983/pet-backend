@@ -4,10 +4,8 @@ const Notice = require("../../models/noticesSchema");
 const deleteNotices = async (req, res) => {
   const { id } = req.params;
   const notices = await Notice.findByIdAndRemove(id);
-  
 
-    if (!notices) {
-  
+  if (!notices) {
     throw HttpError(404, "Not found");
   }
   res.json({

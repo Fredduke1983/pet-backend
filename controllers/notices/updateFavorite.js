@@ -1,6 +1,5 @@
 const HttpError = require("../../utils/HttpError");
 const { User } = require("../../models/userSchema");
-const Notice = require("../../models/noticesSchema");
 
 const updateFavorite = async (req, res) => {
   const { id } = req.params;
@@ -16,7 +15,6 @@ const updateFavorite = async (req, res) => {
     { new: true }
   );
 
-  //   const notice = await Notice.findByIdAndUpdate(id, { favorite: true });
   if (!updateUserFavoriteArray) {
     throw HttpError(404, "Not found");
   }
