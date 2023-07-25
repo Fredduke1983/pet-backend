@@ -21,6 +21,10 @@
     {
       "name": "users",
       "description": "API for users authenticate"
+    },
+    {
+      "name": "notices",
+      "description": "API for notices"
     }
   ],
 
@@ -35,7 +39,7 @@
   "paths": {
     "/users/register": {
       "post": {
-        "description": "Create a new user in the data base.  Duplicates are denied",
+        "summary": "Create a new user in the data base.  Duplicates are denied",
         "operationId": "addNewUser",
         "produces": ["application/json"],
         "tags": ["users"],
@@ -62,7 +66,7 @@
     },
     "/users/login": {
       "post": {
-        "description": "Login a user from the data base.",
+        "summary": "Login a user from the data base.",
         "operationId": "loginUser",
         "produces": ["application/json"],
         "tags": ["users"],
@@ -90,7 +94,7 @@
     },
     "/users/logout": {
       "post": {
-        "description": "Logout of a user.",
+        "summary": "Logout of a user.",
         "operationId": "logoutUser",
         "produces": ["application/json"],
         "tags": ["users"],
@@ -105,12 +109,11 @@
             "BearerAuth": []
           }
         ],
-
         "responses": {
           "200": {
             "description": "User response",
             "schema": {
-              "type": "string"
+              "$ref": "#/definitions/LogoutUserRes"
             }
           }
         }
@@ -118,7 +121,7 @@
     },
     "/users/current": {
       "get": {
-        "description": "Returns one current user, only if he loggedin",
+        "summary": "Returns one current user, only if he loggedin",
         "produces": ["application/json"],
         "tags": ["users"],
         "security": [
@@ -132,7 +135,6 @@
             "description": "Bearer token must have in the format 'Bearer {token}'"
           }
         ],
-
         "responses": {
           "200": {
             "description": "A list of one current user",
@@ -146,9 +148,9 @@
         }
       }
     },
-    "/users/{id}": {
+    "/users/update": {
       "patch": {
-        "description": "Updates a user by id",
+        "summary": "Updates a user",
         "tags": ["users"],
         "security": [
           {
@@ -156,13 +158,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "required": true,
-            "description": "The id of the user to update"
-          },
           {
             "name": "name",
             "in": "formData",
@@ -199,14 +194,6 @@
             "description": "The birthday of the user"
           },
           {
-            "name": "pets",
-            "in": "formData",
-            "type": "array",
-            "required": false,
-            "description": "The pets of the user"
-          },
-
-          {
             "name": "avatar",
             "in": "formData",
             "type": "file",
@@ -218,45 +205,29 @@
           "200": {
             "description": "User updated successfully",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/CurrentUserRes"
             }
-          },
-          "404": {
-            "description": "User not found"
-          },
-          "500": {
-            "description": "Server error"
           }
         }
-      },
-      "definitions": {
-        "User": {
-          "type": "object",
-          "required": ["id"],
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "phone": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "birthday": {
-              "type": "string"
-            },
-            "pets": {
-              "type": "string"
-            },
-            "avatar": {
-              "type": "file"
+      }
+    },
+    "/notices/getall": {
+      "get": {
+        "summary": "Get all notices",
+        "operationId": "getAllNotices",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "notices",
+            "description": "Fetch all notices"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/NoticesRes"
             }
           }
         }
@@ -319,6 +290,10 @@
       "type": "object",
       "required": true,
       "properties": {
+        "_id": {
+          "type": "string",
+          "example": "User's <ID>"
+        },
         "name": {
           "type": "string",
           "example": "Junior"
@@ -333,56 +308,51 @@
         }
       }
     },
+    "LogoutUserRes": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "User with <ID> loged out"
+        }
+      }
+    },
     "CurrentUserRes": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    },
-    "LogoutUserReq": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "_id": {
-          "type": "string"
-        }
-      }
-    },
-
-    "User": {
       "type": "object",
       "required": ["name", "email", "password"],
       "properties": {
-        "id": {
-          "type": "string"
+        "_id": {
+          "type": "string",
+          "example": "User's <ID>"
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "example": "Junior"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "example": "junior@junior.com"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "example": "Hashed password ###"
         },
         "avatar": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "example": "URL to image"
         },
         "phone": {
-          "type": "string"
+          "type": "string",
+          "example": "(050)0000000"
         },
         "city": {
-          "type": "string"
+          "type": "string",
+          "example": "Kiyv"
         },
         "birthday": {
-          "type": "string"
+          "type": "string",
+          "example": "11.11.1999"
         },
         "pets": {
           "type": "array",
@@ -397,23 +367,105 @@
             "type": "object",
             "properties": {
               "petId": {
-                "type": "string"
+                "type": "string",
+                "example": "Pet's <ID>"
               },
               "petName": {
-                "type": "string"
+                "type": "string",
+                "example": "Barsik"
               },
               "petBirthday": {
-                "type": "string"
+                "type": "string",
+                "example": "2020"
               },
               "petType": {
-                "type": "string"
+                "type": "string",
+                "example": "Dog"
               },
               "petAvatar": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "example": "URL to image"
               }
             }
           }
+        },
+        "favorites": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "<noticeID_1>,<noticeID_2>, ...",
+            "properties": {
+              "noticeId": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "token": {
+          "type": "string",
+          "example": "Bearer <token>"
+        }
+      }
+    },
+    "NoticesRes": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "string",
+          "example": "10000UAH"
+        },
+        "_id": {
+          "type": "string",
+          "example": "<noticeID>"
+        },
+        "name": {
+          "type": "string",
+          "example": "Junior"
+        },
+        "breed": {
+          "type": "string",
+          "example": "Red parrot"
+        },
+        "place": {
+          "type": "string",
+          "example": "Kiyv"
+        },
+        "imgUrl": {
+          "type": "string",
+          "example": "<URL> to image"
+        },
+        "title": {
+          "type": "string",
+          "example": "Help! My Parrot Was Rejected..."
+        },
+        "comments": {
+          "type": "string",
+          "example": "A gate agent suddenly objected..."
+        },
+        "birthday": {
+          "type": "string",
+          "example": "11.11.1999"
+        },
+        "category": {
+          "type": "string",
+          "example": "your pet/sell/lost/found/in good hands"
+        },
+        "sex": {
+          "type": "string",
+          "example": "female"
+        },
+        "email": {
+          "type": "string",
+          "example": "junior@junior.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "(050)0000000"
+        },
+        "favorite": {
+          "type": "string",
+          "example": "true"
         }
       }
     }
