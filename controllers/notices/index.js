@@ -1,3 +1,5 @@
+const ctrWrapper= require("../../utils/ctrlWrapper")
+
 const getAllNotices = require("./getAllNotices");
 const getById = require("./getAllById");
 const getNoticesUser = require("./getNoticesUser");
@@ -7,17 +9,16 @@ const deleteNotices = require("./deleteNotices");
 const updateNotices = require("./updateNotices");
 const updateFavorite = require("./updateFavorite");
 const favoriteDelete = require("./favoriteDelete");
-const deletePet = require("./deletePet");
+
 
 module.exports = {
-  getAllNotices,
-  getById,
-  getNoticesUser,
-  getNoticesWithSearchParams,
-  addNotices,
-  deleteNotices,
-  updateNotices,
-  updateFavorite,
-  favoriteDelete,
-  deletePet,
+  getAllNotices:ctrWrapper(getAllNotices),
+  getById:ctrWrapper(getById),
+  getNoticesUser:ctrWrapper(getNoticesUser),
+  getNoticesWithSearchParams:ctrWrapper(getNoticesWithSearchParams),
+  addNotices:ctrWrapper(addNotices),
+  deleteNotices:ctrWrapper(deleteNotices),
+  updateNotices:ctrWrapper(updateNotices),
+  updateFavorite:ctrWrapper(updateFavorite),
+  favoriteDelete:ctrWrapper(favoriteDelete),
 };
