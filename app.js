@@ -7,7 +7,6 @@ const authRouter = require("./routes/auth");
 const noticesRouter = require("./routes/notices");
 const newsRouter = require("./routes/news");
 const sponsorsRouter = require("./routes/sponsors");
-// const { authenticate } = require("./middlewares");
 
 require("dotenv").config();
 
