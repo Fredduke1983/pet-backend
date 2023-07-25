@@ -1,9 +1,14 @@
+const { HttpError } = require("../../utils");
+
 const currentUser = async (req, res) => {
-  const { email, name } = req.user;
+  const user = req.user;
+
+ if (!user) {
+    throw HttpError(404, "User not found");
+  }
 
   res.json({
-    email,
-    name,
+    user
   });
 };
 
