@@ -51,7 +51,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "User response",
             "schema": {
               "$ref": "#/definitions/NewUserRes"
@@ -265,55 +265,6 @@
   },
 
   "definitions": {
-    "CurrentUserRes": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    },
-    "LogoutUserReq": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "_id": {
-          "type": "string"
-        }
-      }
-    },
-    "LoginUserReq": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "LoginUserRes": {
-      "type": "object",
-      "required": true,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        }
-      }
-    },
-
     "NewUserReq": {
       "type": "object",
       "required": true,
@@ -344,9 +295,62 @@
           "type": "string",
           "example": "junior@junior.com"
         },
+        "password": {
+          "type": "string",
+          "example": "Hashed password ###"
+        }
+      }
+    },
+    "LoginUserReq": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "junior@junior.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "Junior123"
+        }
+      }
+    },
+    "LoginUserRes": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Junior"
+        },
+        "email": {
+          "type": "string",
+          "example": "junior@junior.com"
+        },
         "token": {
           "type": "string",
           "example": "Bearer <token>"
+        }
+      }
+    },
+    "CurrentUserRes": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "LogoutUserReq": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "_id": {
+          "type": "string"
         }
       }
     },
