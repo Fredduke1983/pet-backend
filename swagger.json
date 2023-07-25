@@ -33,31 +33,120 @@
     }
   },
   "paths": {
-    "/users/{id}": {
-      "get": {
-        "description": "Returns one user by id from the base data",
-
+    "/users/register": {
+      "post": {
+        "description": "Create a new user in the data base.  Duplicates are denied",
+        "operationId": "addNewUser",
+        "produces": ["application/json"],
         "tags": ["users"],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "type": "string",
-            "example": "id"
+            "name": "users",
+            "in": "body",
+            "description": "Registration of new user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUserReq"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "A list of one user",
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/NewUserRes"
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "Login a user from the data base.",
+        "operationId": "loginUser",
+        "produces": ["application/json"],
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "users",
+            "in": "body",
+            "description": "Login of user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginUserReq"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/LoginUserRes"
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "description": "Logout of a user.",
+        "operationId": "logoutUser",
+        "produces": ["application/json"],
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "Logout",
+            "description": "Bearer token must have in the format 'Bearer {token}'"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "description": "Returns one current user, only if he loggedin",
+        "produces": ["application/json"],
+        "tags": ["users"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Current",
+            "description": "Bearer token must have in the format 'Bearer {token}'"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "A list of one current user",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/CurrentUserRes"
               }
             }
           }
         }
-      },
+      }
+    },
+    "/users/{id}": {
       "patch": {
         "description": "Updates a user by id",
         "tags": ["users"],
@@ -172,119 +261,6 @@
           }
         }
       }
-    },
-    "/users/register": {
-      "post": {
-        "description": "Create a new user in the data base.  Duplicates are denied",
-        "operationId": "addNewUser",
-        "produces": ["application/json"],
-        "tags": ["users"],
-        "parameters": [
-          {
-            "name": "users",
-            "in": "body",
-            "description": "Registration of new user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewUser"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User response",
-            "schema": {
-              "$ref": "#/definitions/NewUser"
-            }
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "description": "Login a user from the data base.",
-        "operationId": "loginUser",
-        "produces": ["application/json"],
-        "tags": ["users"],
-        "parameters": [
-          {
-            "name": "users",
-            "in": "body",
-            "description": "Login of user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/LoginUserReq"
-            }
-          }
-        ],
-
-        "responses": {
-          "200": {
-            "description": "User response",
-            "schema": {
-              "$ref": "#/definitions/LoginUserRes"
-            }
-          }
-        }
-      }
-    },
-    "/users/logout": {
-      "post": {
-        "description": "Logout of a user.",
-        "operationId": "logoutUser",
-        "produces": ["application/json"],
-        "tags": ["users"],
-        "parameters": [
-          {
-            "name": "Logout",
-            "description": "Bearer token must have in the format 'Bearer {token}'"
-          }
-        ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-
-        "responses": {
-          "200": {
-            "description": "User response",
-            "schema": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "/users/current": {
-      "get": {
-        "description": "Returns one current user, only if he loggedin",
-        "produces": ["application/json"],
-        "tags": ["users"],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Current",
-            "description": "Bearer token must have in the format 'Bearer {token}'"
-          }
-        ],
-
-        "responses": {
-          "200": {
-            "description": "A list of one current user",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CurrentUserRes"
-              }
-            }
-          }
-        }
-      }
     }
   },
 
@@ -338,18 +314,39 @@
       }
     },
 
-    "NewUser": {
+    "NewUserReq": {
       "type": "object",
       "required": true,
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "example": "Junior"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "example": "junior@junior.com"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "example": "Junior123"
+        }
+      }
+    },
+    "NewUserRes": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Junior"
+        },
+        "email": {
+          "type": "string",
+          "example": "junior@junior.com"
+        },
+        "token": {
+          "type": "string",
+          "example": "Bearer <token>"
         }
       }
     },
