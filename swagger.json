@@ -321,7 +321,7 @@
       "post": {
         "summary": "Create a new notice.",
         "operationId": "addNewNotice",
-
+        "produces": ["application/json"],
         "tags": ["notices"],
         "security": [
           {
@@ -333,15 +333,8 @@
             "name": "category",
             "in": "formData",
             "type": "string",
-            "description": "Category of notice",
-            "required": false
-          },
-          {
-            "name": "type",
-            "in": "formData",
-            "type": "string",
-            "required": false,
-            "description": "Type of pet (dog, cat e.g.)"
+            "description": "Category of notice (your pet/sell/lost/good hands)",
+            "required": true
           },
           {
             "name": "name",
@@ -358,27 +351,63 @@
             "description": "Birthday of the pet"
           },
           {
+            "name": "type",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Type of pet (dog, cat e.g.)"
+          },
+          {
             "name": "comments",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Comments of notice"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": false,
+            "description": "The avatar image of the pet"
+          },
+          {
+            "name": "title",
             "in": "formData",
             "type": "string",
             "required": false,
             "description": "Title of notice"
           },
           {
-            "name": "avatar",
+            "name": "sex",
             "in": "formData",
-            "type": "file",
+            "type": "string",
             "required": false,
-            "description": "The avatar image of the pet"
+            "description": "Sex of pet"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Location of pet"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Price of pet (Number)"
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "User response",
+            "type": "object",
             "schema": {
               "oneOf": [
-                { "$ref": "#/definitions/NoticesResPet" },
-                { "$ref": "#/definitions/NoticesResUser" }
+                { "$ref": "#/definitions/NoticesResUser" },
+                { "$ref": "#/definitions/NoticesResPet" }
               ]
             }
           }
@@ -621,17 +650,13 @@
         }
       }
     },
-    "NewNoticeReq": {
+    "NoticesResPet": {
       "type": "object",
       "required": true,
       "properties": {
         "name": {
           "type": "string",
           "example": "Barsik"
-        },
-        "category": {
-          "type": "string",
-          "example": "your pet/sell/lost/found/in good hands"
         },
         "birthday": {
           "type": "string",
@@ -641,16 +666,68 @@
           "type": "string",
           "example": "Dog"
         },
-        "file": {
-          "name": "avatar",
-          "in": "formData",
-          "type": "file",
-          "required": false,
-          "description": "The avatar image of the pet"
+        "avatar": {
+          "type": "string",
+          "example": "URL to image"
+        },
+        "comments": {
+          "type": "string",
+          "example": "A Dog look for new home"
+        }
+      }
+    },
+    "NoticesResUser": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Barsik"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "URL to image"
         },
         "title": {
           "type": "string",
+          "example": "Help! My Parrot Was Rejected..."
+        },
+        "birthday": {
+          "type": "string",
+          "example": "11.11.2020"
+        },
+        "category": {
+          "type": "string",
+          "example": "your pet/sell/lost/found/in good hands"
+        },
+        "price": {
+          "type": "string",
+          "example": "10000UAH"
+        },
+        "sex": {
+          "type": "string",
+          "example": "male/female"
+        },
+        "email": {
+          "type": "string",
+          "example": "junior@junior.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "(050)0000000"
+        },
+
+        "petType": {
+          "type": "string",
+          "example": "Dog"
+        },
+        "comments": {
+          "type": "string",
           "example": "A Dog look for new home"
+        },
+        "location": {
+          "type": "string",
+          "example": "Kiyv"
         }
       }
     }

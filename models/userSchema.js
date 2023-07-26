@@ -18,6 +18,10 @@ const petSchema = new Schema({
     type: String,
     required: true,
   },
+  comments: {
+    type: String,
+    required: true,
+  },
 });
 
 const userSchema = new Schema(
@@ -37,7 +41,8 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg",
+      default:
+        "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg",
     },
     phone: {
       type: String,

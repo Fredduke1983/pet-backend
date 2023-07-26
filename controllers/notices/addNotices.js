@@ -28,14 +28,14 @@ const addNotices = async (req, res) => {
       { ...req.body, avatar: newLinkToAvatar },
     ];
 
-    await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       currentUserId,
       { pets: updatedPets },
       { new: true }
     );
-
+    const { pets } = updatedUser;
     res.status(200).json({
-      updatedPets,
+      pets,
     });
   } else if (
     category === "sell" ||
