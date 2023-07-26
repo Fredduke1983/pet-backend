@@ -413,6 +413,66 @@
           }
         }
       }
+    },
+    "/notices/delnotice/{id}": {
+      "delete": {
+        "summary": "Delete your own notice",
+        "operationId": "delNotice",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/DeleteNotice"
+            }
+          }
+        }
+      }
+    },
+    "/notices/delpet/{id}": {
+      "delete": {
+        "summary": "Delete your own pet",
+        "operationId": "delPet",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/DeletePet"
+            }
+          }
+        }
+      }
     }
   },
 
@@ -728,6 +788,24 @@
         "location": {
           "type": "string",
           "example": "Kiyv"
+        }
+      }
+    },
+    "DeleteNotice": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "message: 'Notice deleted'"
+        }
+      }
+    },
+    "DeletePet": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "message: 'Pet deleted'"
         }
       }
     }

@@ -6,9 +6,9 @@ const deleteNotices = async (req, res) => {
   const { _id } = req.user;
   const notice = await Notice.findById(id);
 
-  console.log(notice.owner)
-  console.log(_id)
-
+  if (!notice.owner) {
+    throw HttpError(404, "That notice haven't owner");
+  }
   if (notice.owner.toString() === _id.toString()) {
     await Notice.findByIdAndRemove(id);
   } else {
