@@ -277,6 +277,18 @@
             "in": "query",
             "type": "string",
             "description": "Search notices by category"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string",
+            "description": "Page"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string",
+            "description": "Limit"
           }
         ],
         "responses": {
