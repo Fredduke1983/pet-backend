@@ -9,6 +9,7 @@ const deleteNotices = require("./deleteNotices");
 const updateNotices = require("./updateNotices");
 const updateFavorite = require("./updateFavorite");
 const favoriteDelete = require("./favoriteDelete");
+const deletePet = require("./deletePet");
 
 module.exports = {
   getAllNotices: ctrWrapper(getAllNotices),
@@ -20,4 +21,5 @@ module.exports = {
   updateNotices: ctrWrapper(updateNotices),
   updateFavorite: ctrWrapper(updateFavorite),
   favoriteDelete: ctrWrapper(favoriteDelete),
+  deletePet: ctrWrapper(deletePet),
 };

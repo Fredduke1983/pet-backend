@@ -12,6 +12,7 @@ router.get("/:id", ctrl.getById);
 router.post("/add", authenticate, uploadFile(), ctrl.addNotices);
 
 router.delete("/delnotice/:id", authenticate, ctrl.deleteNotices);
+router.delete("/delpet/:id", authenticate, ctrl.deletePet);
 
 router.patch("/favorite/:id", authenticate, ctrl.updateFavorite);
 router.patch("/favoritedelete/:id", authenticate, ctrl.favoriteDelete);
