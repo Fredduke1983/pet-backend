@@ -4,6 +4,9 @@ const Notice = require("../../models/noticesSchema");
 const getNoticesWithSearchParams = async (req, res) => {
   const { word, category } = req.query;
 
+  const { page = 1, limit = 12 } = req.query;
+  const skip = (page - 1) * limit;
+
   try {
     const query = {};
 
@@ -16,14 +19,15 @@ const getNoticesWithSearchParams = async (req, res) => {
       query.category = category;
     }
 
-    const notices = await Notice.find(query);
+    const notices = await Notice.find(query).skip(skip).limit(limit);
 
     if (notices.length === 0) {
       return res.status(404).json({ error: "Notices not found" });
     }
+
     res.status(200).json(notices);
   } catch (error) {
-    throw HttpError(500, "Server failed");
+    throw new HttpError(500, "Server failed");
   }
 };
 
