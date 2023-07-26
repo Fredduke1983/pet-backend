@@ -7,7 +7,7 @@ const addNotices = async (req, res) => {
   const objFile = { ...req.file };
   const { category } = req.body;
 
-  const newLinkToAvatar = req.user.avatar != null ? req.user.avatar : null;
+  let newLinkToAvatar = req.user.avatar != null ? req.user.avatar : null;
 
   if (!Object.keys(objBody).length && !Object.keys(objFile).length) {
     throw HttpError(400, "No data");
@@ -17,13 +17,16 @@ const addNotices = async (req, res) => {
   const { file = null } = req;
 
   if (file) {
-    await imgHandler(file, newLinkToAvatar);
+    newLinkToAvatar = await imgHandler(file, newLinkToAvatar);
   }
 
   if (category === "your pet") {
     const userCard = await User.findById(currentUserId);
 
-    const updatedPets = [...userCard.pets, req.body];
+    const updatedPets = [
+      ...userCard.pets,
+      { ...req.body, avatar: newLinkToAvatar },
+    ];
 
     await User.findByIdAndUpdate(
       currentUserId,

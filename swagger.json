@@ -139,7 +139,7 @@
           "200": {
             "description": "A list of one current user",
             "schema": {
-              "type": "array",
+              "type": "object",
               "items": {
                 "$ref": "#/definitions/CurrentUserRes"
               }
@@ -224,10 +224,162 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Notices response",
+            "schema": {
+              "$ref": "#/definitions/NoticesRes"
+            }
+          }
+        }
+      }
+    },
+    "/notices/noticesuser": {
+      "get": {
+        "summary": "Get all notices of current user",
+        "operationId": "getAllNoticesCurrentUser",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "notices",
+            "description": "Fetch all notices of current user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notices response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/NoticesRes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/search": {
+      "get": {
+        "summary": "Search notices",
+        "operationId": "searchNotices",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "word",
+            "in": "query",
+            "type": "string",
+            "description": "Search notices by the words of the title "
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string",
+            "description": "Search notices by category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NoticesRes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/{id}": {
+      "get": {
+        "summary": "Get  notice by ID",
+        "operationId": "getOneNotice",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Fetch one notice",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notices response",
+            "schema": {
+              "$ref": "#/definitions/NoticesRes"
+            }
+          }
+        }
+      }
+    },
+    "/notices/add": {
+      "post": {
+        "summary": "Create a new notice.",
+        "operationId": "addNewNotice",
+
+        "tags": ["notices"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "formData",
+            "type": "string",
+            "description": "Category of notice",
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Type of pet (dog, cat e.g.)"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "The name of pet"
+          },
+          {
+            "name": "birthday",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Birthday of the pet"
+          },
+          {
+            "name": "comments",
+            "in": "formData",
+            "type": "string",
+            "required": false,
+            "description": "Title of notice"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "required": false,
+            "description": "The avatar image of the pet"
+          }
+        ],
+        "responses": {
           "201": {
             "description": "User response",
             "schema": {
-              "$ref": "#/definitions/NoticesRes"
+              "oneOf": [
+                { "$ref": "#/definitions/NoticesResPet" },
+                { "$ref": "#/definitions/NoticesResUser" }
+              ]
             }
           }
         }
@@ -466,6 +618,39 @@
         "favorite": {
           "type": "string",
           "example": "true"
+        }
+      }
+    },
+    "NewNoticeReq": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Barsik"
+        },
+        "category": {
+          "type": "string",
+          "example": "your pet/sell/lost/found/in good hands"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "11.11.2020"
+        },
+        "petType": {
+          "type": "string",
+          "example": "Dog"
+        },
+        "file": {
+          "name": "avatar",
+          "in": "formData",
+          "type": "file",
+          "required": false,
+          "description": "The avatar image of the pet"
+        },
+        "title": {
+          "type": "string",
+          "example": "A Dog look for new home"
         }
       }
     }
