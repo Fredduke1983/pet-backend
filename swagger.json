@@ -546,6 +546,46 @@
           }
         }
       }
+    },
+    "/news/getall": {
+      "get": {
+        "summary": "Search news",
+        "operationId": "searchNews",
+        "produces": ["application/json"],
+        "tags": ["news"],
+        "parameters": [
+          {
+            "name": "word",
+            "in": "query",
+            "type": "string",
+            "description": "Search news by the words of the title "
+          },
+
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string",
+            "description": "Page"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string",
+            "description": "Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewsRes"
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -879,6 +919,35 @@
         "message": {
           "type": "string",
           "example": "message: 'Pet deleted'"
+        }
+      }
+    },
+    "NewsRes": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "<newsID>"
+        },
+        "imgUrl": {
+          "type": "string",
+          "example": "<URL> to image"
+        },
+        "title": {
+          "type": "string",
+          "example": "Help! My Parrot Was Rejected..."
+        },
+        "text": {
+          "type": "string",
+          "example": "A gate agent suddenly objected..."
+        },
+        "date": {
+          "type": "string",
+          "example": "2023-04-11T09:00:18+0000"
+        },
+        "url": {
+          "type": "string",
+          "example": "https://www.nytimes.com/2023/04/07/health/vet-pet-health-telemedicine.…"
         }
       }
     }
