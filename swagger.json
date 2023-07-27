@@ -485,6 +485,67 @@
           }
         }
       }
+    },
+    "/notices/favorite/{id}": {
+      "patch": {
+        "summary": "Change fav list",
+        "operationId": "favorite",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "type": "string",
+            "required": true,
+            "example": "true/false"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/CurrentUserRes"
+            }
+          }
+        }
+      }
+    },
+    "/notices/favoritedelete/{id}": {
+      "patch": {
+        "summary": "Delete your own favorite notice",
+        "operationId": "delFavNotice",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User response",
+            "schema": {
+              "$ref": "#/definitions/CurrentUserRes"
+            }
+          }
+        }
+      }
     }
   },
 
