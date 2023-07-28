@@ -19,13 +19,14 @@ const getNoticesWithSearchParams = async (req, res) => {
       query.category = category;
     }
 
+    const allNotices = await Notice.find(query);
     const notices = await Notice.find(query).skip(skip).limit(limit);
 
     if (notices.length === 0) {
       return res.status(404).json({ error: "Notices not found" });
     }
 
-    res.status(200).json(notices);
+    res.status(200).json({ notices, lenght: allNotices.length });
   } catch (error) {
     throw new HttpError(500, "Server failed");
   }
