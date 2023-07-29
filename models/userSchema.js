@@ -46,12 +46,15 @@ const userSchema = new Schema(
     },
     phone: {
       type: String,
+      default: "",
     },
     city: {
       type: String,
+      default: "",
     },
     birthday: {
       type: String,
+      default: "",
     },
     pets: [petSchema],
     favorites: [
