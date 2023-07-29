@@ -15,9 +15,7 @@ const deletePet = ctrlWrapper(async (req, res) => {
   const pets = user.pets.filter((pet) => pet.id !== id);
 
   await User.findByIdAndUpdate(_id, { pets }, { new: true });
-  res.json({
-    message: "Pet deleted",
-  });
+  res.json(pets);
 });
 
 module.exports = deletePet;
