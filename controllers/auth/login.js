@@ -18,7 +18,8 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  const { name, _id } = user;
+  console.log(user);
+  const { _id } = user;
 
   const passwordCompare = await bcrypt.compare(password, user.password);
 
@@ -31,14 +32,12 @@ const login = async (req, res, next) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "30d" });
-  await User.findByIdAndUpdate(user._id, { token });
 
-  res.json({
-    _id,
-    name,
-    email,
-    token,
-  });
+  await User.findByIdAndUpdate(_id, { token });
+
+  const updatedUser = await User.findById(_id);
+
+  res.json(updatedUser);
 };
 
 module.exports = login;
