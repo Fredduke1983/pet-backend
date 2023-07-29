@@ -15,9 +15,7 @@ const deleteNotices = async (req, res) => {
     throw HttpError(401, "You do not have access to delete this notice");
   }
 
-  res.json({
-    message: "Notice deleted",
-  });
+  res.json(id);
 };
 
 module.exports = deleteNotices;

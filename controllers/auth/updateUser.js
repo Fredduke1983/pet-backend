@@ -57,10 +57,7 @@ const updateUser = async (req, res) => {
     }
   );
 
-  res.status(200).json({
-    userUpdate,
-    petsLenght: userUpdate.pets.length,
-  });
+  res.status(200).json(userUpdate);
 };
 
 module.exports = updateUser;
