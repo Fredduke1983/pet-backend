@@ -1,41 +1,35 @@
 const { Schema, model } = require("mongoose");
 const mongoose = require("mongoose");
 const handleMongooseError = require("../utils/handleMongooseError");
+const { DEFAULT_PET_IMG, DEFAULT_CONTACT_INFO } = require("../constants/constants");
 
 const noticesSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      // required: true,
     },
     breed: {
       type: String,
-      // required: true,
     },
     place: {
       type: String,
-      // required: true,
     },
     imgUrl: {
       type: String,
       default:
-        "https://img.freepik.com/free-vector/never-leave-your-pet-behind-lettering_23-2148521779.jpg",
+        DEFAULT_PET_IMG,
     },
     title: {
       type: String,
-      // required: true,
     },
     text: {
       type: String,
-      // required: true,
     },
     birthday: {
       type: String,
-      // required: true,
     },
     category: {
       type: String,
-      // required: true,
     },
     price: {
       type: Number,
@@ -43,19 +37,14 @@ const noticesSchema = new mongoose.Schema(
     },
     sex: {
       type: String,
-      // required: true,
     },
     email: {
       type: String,
-      default: "The user did not leave a contact",
+      default: DEFAULT_CONTACT_INFO,
     },
     phone: {
       type: String,
-      default: "The user did not leave a contact",
-    },
-    favorite: {
-      type: Boolean,
-      default: false,
+      default: DEFAULT_CONTACT_INFO,
     },
     owner: {
       type: Schema.Types.ObjectId,
