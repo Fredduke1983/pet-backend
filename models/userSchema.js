@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../utils");
+const { DEFAULT_USER_IMG } = require("../constants/constants");
 
 const petSchema = new Schema({
   name: {
@@ -14,7 +15,7 @@ const petSchema = new Schema({
     type: String,
     required: true,
   },
-  avatar: {
+  imgUrl: {
     type: String,
     required: true,
   },
@@ -41,8 +42,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default:
-        "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg",
+      default: DEFAULT_USER_IMG,
     },
     phone: {
       type: String,

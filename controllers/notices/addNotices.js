@@ -1,3 +1,4 @@
+const { DEFAULT_PET_IMG } = require("../../constants/constants");
 const Notice = require("../../models/noticesSchema");
 const { User } = require("../../models/userSchema");
 const { HttpError, imgHandler } = require("../../utils");
@@ -18,25 +19,24 @@ const addNotices = async (req, res) => {
 
   if (file) {
     newLinkToAvatar = await imgHandler(file, newLinkToAvatar);
+  } else {
+    newLinkToAvatar = DEFAULT_PET_IMG;
   }
 
   if (category === "your pet") {
     const userCard = await User.findById(currentUserId);
 
-    const updatedPets = [
-      ...userCard.pets,
-      { ...req.body, avatar: newLinkToAvatar },
-    ];
+    const newPet = { ...req.body, imgUrl: newLinkToAvatar };
 
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedPets = [...userCard.pets, newPet];
+
+    await User.findByIdAndUpdate(
       currentUserId,
       { pets: updatedPets },
       { new: true }
     );
-    const { pets } = updatedUser;
-    res.status(200).json({
-      pets,
-    });
+
+    res.status(200).json(newPet);
   } else if (
     category === "sell" ||
     category === "lost" ||
