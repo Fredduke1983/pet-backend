@@ -23,7 +23,7 @@ const getNoticesWithSearchParams = async (req, res) => {
     const notices = await Notice.find(query).skip(skip).limit(limit);
 
     if (notices.length === 0) {
-      return res.status(404).json([]);
+      return res.status(404).json({});
     }
 
     res.status(200).json({ notices, length: allNotices.length });
