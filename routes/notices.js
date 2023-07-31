@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/getall", ctrl.getAllNotices);
 router.get("/noticesuser", authenticate, ctrl.getNoticesUser);
 router.get("/search", ctrl.getNoticesWithSearchParams);
+router.get("/getfavorites", authenticate, ctrl.getFavorites);
 router.get("/:id", ctrl.getById);
 
 router.post("/add", authenticate, uploadFile(), ctrl.addNotices);
