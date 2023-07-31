@@ -13,11 +13,12 @@ const getAllNews = ctrlWrapper(async (req, res) => {
     query.title = { $regex: word, $options: "i" };
 
     const news = await News.find(query).skip(skip).limit(limit);
+    const allNews = await News.find(query);
 
     if (news.length === 0) {
       return res.status(404).json({ error: "News not found" });
     }
-    res.status(200).json(news);
+    res.status(200).json({ news, length: allNews.length });
   } catch (error) {
     throw new HttpError(500, "Server failed");
   }
