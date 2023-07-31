@@ -86,7 +86,7 @@
           "200": {
             "description": "User response",
             "schema": {
-              "$ref": "#/definitions/LoginUserRes"
+              "$ref": "#/definitions/CurrentUserRes"
             }
           }
         }
@@ -121,26 +121,28 @@
     },
     "/users/current": {
       "get": {
-        "summary": "Returns one current user, only if he loggedin",
+        "summary": "Get current user",
+        "operationId": "getCurrentUser",
         "produces": ["application/json"],
         "tags": ["users"],
+        "parameters": [
+          {
+            "name": "notices",
+            "description": "Fetch of current user. Bearer token must have in the format 'Bearer {token}'"
+          }
+        ],
         "security": [
           {
             "BearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "Current",
-            "description": "Bearer token must have in the format 'Bearer {token}'"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "A list of one current user",
+            "description": "User response",
             "schema": {
-              "type": "object",
+              "type": "array",
               "items": {
+                "type": "object",
                 "$ref": "#/definitions/CurrentUserRes"
               }
             }
@@ -194,7 +196,7 @@
             "description": "The birthday of the user"
           },
           {
-            "name": "avatar",
+            "name": "file",
             "in": "formData",
             "type": "file",
             "required": false,
@@ -242,7 +244,12 @@
         "parameters": [
           {
             "name": "notices",
-            "description": "Fetch all notices of current user"
+            "description": "Fetch all notices of current user. Bearer token must have in the format 'Bearer {token}'"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
           }
         ],
         "responses": {
@@ -519,7 +526,7 @@
     },
     "/notices/favoritedelete/{id}": {
       "patch": {
-        "summary": "Delete your own favorite notice",
+        "summary": "Delete your favorite notice",
         "operationId": "delFavNotice",
         "produces": ["application/json"],
         "tags": ["notices"],
@@ -581,6 +588,37 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/NewsRes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/getfavorites": {
+      "get": {
+        "summary": "Favorites list of current user",
+        "operationId": "searchNews",
+        "produces": ["application/json"],
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NoticesRes"
               }
             }
           }
@@ -673,7 +711,6 @@
     },
     "CurrentUserRes": {
       "type": "object",
-      "required": ["name", "email", "password"],
       "properties": {
         "_id": {
           "type": "string",
@@ -765,61 +802,69 @@
     "NoticesRes": {
       "type": "object",
       "properties": {
-        "price": {
+        "length": {
           "type": "string",
-          "example": "10000UAH"
+          "example": "1"
         },
-        "_id": {
-          "type": "string",
-          "example": "<noticeID>"
-        },
-        "name": {
-          "type": "string",
-          "example": "Junior"
-        },
-        "breed": {
-          "type": "string",
-          "example": "Red parrot"
-        },
-        "place": {
-          "type": "string",
-          "example": "Kiyv"
-        },
-        "imgUrl": {
-          "type": "string",
-          "example": "<URL> to image"
-        },
-        "title": {
-          "type": "string",
-          "example": "Help! My Parrot Was Rejected..."
-        },
-        "comments": {
-          "type": "string",
-          "example": "A gate agent suddenly objected..."
-        },
-        "birthday": {
-          "type": "string",
-          "example": "11.11.1999"
-        },
-        "category": {
-          "type": "string",
-          "example": "your pet/sell/lost/found/in good hands"
-        },
-        "sex": {
-          "type": "string",
-          "example": "female"
-        },
-        "email": {
-          "type": "string",
-          "example": "junior@junior.com"
-        },
-        "phone": {
-          "type": "string",
-          "example": "(050)0000000"
-        },
-        "favorite": {
-          "type": "string",
-          "example": "true"
+        "favNotices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "string",
+                "example": "10000UAH"
+              },
+              "_id": {
+                "type": "string",
+                "example": "<noticeID>"
+              },
+              "name": {
+                "type": "string",
+                "example": "Junior"
+              },
+              "breed": {
+                "type": "string",
+                "example": "Red parrot"
+              },
+              "place": {
+                "type": "string",
+                "example": "Kiyv"
+              },
+              "imgUrl": {
+                "type": "string",
+                "example": "<URL> to image"
+              },
+              "title": {
+                "type": "string",
+                "example": "Help! My Parrot Was Rejected..."
+              },
+              "comments": {
+                "type": "string",
+                "example": "A gate agent suddenly objected..."
+              },
+              "birthday": {
+                "type": "string",
+                "example": "11.11.1999"
+              },
+              "category": {
+                "type": "string",
+                "example": "your pet/sell/lost/found/in good hands"
+              },
+              "sex": {
+                "type": "string",
+                "example": "female"
+              },
+              "email": {
+                "type": "string",
+                "example": "junior@junior.com"
+              },
+              "phone": {
+                "type": "string",
+                "example": "(050)0000000"
+              }
+            }
+          }
         }
       }
     },

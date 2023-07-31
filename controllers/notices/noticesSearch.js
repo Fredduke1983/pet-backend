@@ -26,7 +26,7 @@ const getNoticesWithSearchParams = async (req, res) => {
       return res.status(404).json({});
     }
 
-    res.status(200).json({ notices, length: allNotices.length });
+    res.status(200).json({ length: allNotices.length, notices });
   } catch (error) {
     throw new HttpError(500, "Server failed");
   }
