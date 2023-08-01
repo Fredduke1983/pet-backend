@@ -902,7 +902,7 @@
           "type": "string",
           "example": "Barsik"
         },
-        "avatar": {
+        "imgUrl": {
           "type": "string",
           "example": "URL to image"
         },

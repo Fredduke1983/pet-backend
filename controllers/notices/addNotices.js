@@ -39,8 +39,8 @@ const addNotices = async (req, res) => {
     res.status(200).json(newPet);
   } else if (
     category === "sell" ||
-    category === "lost" ||
-    category === "good hands"
+    category === "lost/found" ||
+    category === "in good hands"
   ) {
     const addedNotice = await Notice.create({
       ...req.body,
