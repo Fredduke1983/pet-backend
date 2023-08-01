@@ -1,7 +1,10 @@
 const { Schema, model } = require("mongoose");
 const mongoose = require("mongoose");
 const handleMongooseError = require("../utils/handleMongooseError");
-const { DEFAULT_PET_IMG, DEFAULT_CONTACT_INFO } = require("../constants/constants");
+const {
+  DEFAULT_PET_IMG,
+  DEFAULT_CONTACT_INFO,
+} = require("../constants/constants");
 
 const noticesSchema = new mongoose.Schema(
   {
@@ -11,24 +14,26 @@ const noticesSchema = new mongoose.Schema(
     breed: {
       type: String,
     },
-    place: {
+    location: {
       type: String,
     },
     imgUrl: {
       type: String,
-      default:
-        DEFAULT_PET_IMG,
+      default: DEFAULT_PET_IMG,
     },
     title: {
       type: String,
     },
-    text: {
+    comments: {
       type: String,
     },
     birthday: {
       type: String,
     },
     category: {
+      type: String,
+    },
+    type: {
       type: String,
     },
     price: {
@@ -58,4 +63,3 @@ noticesSchema.post("save", handleMongooseError);
 const Notice = model("notice", noticesSchema);
 
 module.exports = Notice;
-

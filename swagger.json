@@ -880,11 +880,11 @@
           "type": "string",
           "example": "11.11.2020"
         },
-        "petType": {
+        "type": {
           "type": "string",
           "example": "Dog"
         },
-        "avatar": {
+        "imgUrl": {
           "type": "string",
           "example": "URL to image"
         },
@@ -934,8 +934,7 @@
           "type": "string",
           "example": "(050)0000000"
         },
-
-        "petType": {
+        "type": {
           "type": "string",
           "example": "Dog"
         },
