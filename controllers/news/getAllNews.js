@@ -18,7 +18,7 @@ const getAllNews = ctrlWrapper(async (req, res) => {
     if (news.length === 0) {
       return res.status(404).json({ error: "News not found" });
     }
-    res.status(200).json({ news, length: allNews.length });
+    res.status(200).json({ length: allNews.length, news });
   } catch (error) {
     throw new HttpError(500, "Server failed");
   }
