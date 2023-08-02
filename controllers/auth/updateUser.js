@@ -20,11 +20,8 @@ const updateUser = async (req, res) => {
     throw HttpError(400, "No data");
   }
 
-  const currentUserId = req.user.id;
+  const { id } = req.user;
 
-  const currentUser = await User.findById(currentUserId);
-
-  const { id } = currentUser;
   const { file = null } = req;
 
   if (file) {
@@ -55,7 +52,7 @@ const updateUser = async (req, res) => {
     {
       new: true,
     }
-  );
+  ).select("-password");
 
   res.status(200).json(userUpdate);
 };

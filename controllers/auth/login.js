@@ -18,7 +18,7 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  console.log(user);
+
   const { _id } = user;
 
   const passwordCompare = await bcrypt.compare(password, user.password);
@@ -35,9 +35,9 @@ const login = async (req, res, next) => {
 
   await User.findByIdAndUpdate(_id, { token });
 
-  const updatedUser = await User.findById(_id);
+  const updatedUser = await User.findById(_id).select("-password")
 
-  res.json(updatedUser);
+  res.status(200).json(updatedUser);
 };
 
 module.exports = login;
