@@ -10,12 +10,14 @@ const noticesSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: [true, "Enter name"],
     },
     breed: {
       type: String,
     },
     location: {
       type: String,
+      required: [true, "Enter location"],
     },
     imgUrl: {
       type: String,
@@ -23,18 +25,23 @@ const noticesSchema = new mongoose.Schema(
     },
     title: {
       type: String,
+      required: [true, "Enter some title"],
     },
     comments: {
       type: String,
+      required: [true, "Enter some comment"],
     },
     birthday: {
       type: String,
+      default: "No info",
     },
     category: {
       type: String,
+      required: [true, "Select category"],
     },
     type: {
       type: String,
+      required: [true, "Enter type"],
     },
     price: {
       type: Number,
@@ -42,6 +49,7 @@ const noticesSchema = new mongoose.Schema(
     },
     sex: {
       type: String,
+      required: [true, "Select sex"],
     },
     email: {
       type: String,

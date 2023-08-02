@@ -1,27 +1,27 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../utils");
-const { DEFAULT_USER_IMG } = require("../constants/constants");
+const { DEFAULT_USER_IMG, DEFAULT_PET_IMG } = require("../constants/constants");
 
 const petSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Enter name"],
   },
   birthday: {
     type: String,
-    required: true,
+    default: "No info"
   },
   type: {
     type: String,
-    required: true,
+    required: [true, "Enter type"],
   },
   imgUrl: {
     type: String,
-    required: true,
+    default: DEFAULT_PET_IMG,
   },
   comments: {
     type: String,
-    required: true,
+    required: [true, "Enter some comment"],
   },
 });
 

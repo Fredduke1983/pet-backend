@@ -5,7 +5,7 @@ const { HttpError, userSignupValidator } = require("../../utils");
 const register = async (req, res, next) => {
   const { password } = req.body;
 
-  const { error, value } = userSignupValidator(req.body);
+  const { error } = userSignupValidator(req.body);
 
   if (error) {
     throw HttpError(409, `Wrong data`);
@@ -15,7 +15,9 @@ const register = async (req, res, next) => {
 
   await User.create({ ...req.body, password: hashPassword });
 
-  res.status(201).json({ ...value, password: hashPassword });
+  const newUser = await User.findOne({ email: req.body.email }).select("-password");
+
+  res.status(201).json(newUser);
 };
 
 module.exports = register;
