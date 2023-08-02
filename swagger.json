@@ -60,6 +60,12 @@
             "schema": {
               "$ref": "#/definitions/NewUserRes"
             }
+          },
+          "409": {
+            "description": "Email already exists / wrong data"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -86,8 +92,17 @@
           "200": {
             "description": "User response",
             "schema": {
-              "$ref": "#/definitions/CurrentUserRes"
+              "$ref": "#/definitions/UserRes"
             }
+          },
+          "404": {
+            "description": "Email not found"
+          },
+          "409": {
+            "description": "Wrong data"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -101,7 +116,11 @@
         "parameters": [
           {
             "name": "Logout",
-            "description": "Bearer token must have in the format 'Bearer {token}'"
+            "in": "header",
+            "type": "string",
+            "description": "Bearer token must have in the format 'Bearer {token}'",
+            "allowEmptyValue": false,
+            "readOnly": true
           }
         ],
         "security": [
@@ -115,6 +134,12 @@
             "schema": {
               "$ref": "#/definitions/LogoutUserRes"
             }
+          },
+          "401": {
+            "description": "No such user, login or register"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -650,6 +675,10 @@
       "type": "object",
       "required": true,
       "properties": {
+        "_id": {
+          "type": "string",
+          "example": "User's <ID>"
+        },
         "name": {
           "type": "string",
           "example": "Junior"
@@ -658,9 +687,29 @@
           "type": "string",
           "example": "junior@junior.com"
         },
-        "password": {
+        "avatar": {
           "type": "string",
-          "example": "Hashed password ###"
+          "example": "URL to image"
+        },
+        "phone": {
+          "type": "string",
+          "example": ""
+        },
+        "city": {
+          "type": "string",
+          "example": ""
+        },
+        "birthday": {
+          "type": "string",
+          "example": ""
+        },
+        "favorites": {
+          "type": "array",
+          "example": []
+        },
+        "pets": {
+          "type": "array",
+          "example": []
         }
       }
     },
@@ -678,7 +727,7 @@
         }
       }
     },
-    "LoginUserRes": {
+    "UserRes": {
       "type": "object",
       "required": true,
       "properties": {
@@ -694,6 +743,75 @@
           "type": "string",
           "example": "junior@junior.com"
         },
+        "avatar": {
+          "type": "string",
+          "format": "uri",
+          "example": "URL to image"
+        },
+        "phone": {
+          "type": "string",
+          "example": "(050)0000000"
+        },
+        "city": {
+          "type": "string",
+          "example": "Kiyv"
+        },
+        "birthday": {
+          "type": "string",
+          "example": "11.11.1999"
+        },
+        "favorites": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "<noticeID_1>,<noticeID_2>, ...",
+            "properties": {
+              "noticeId": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "pets": {
+          "type": "array",
+          "items": {
+            "required": [
+              "petId",
+              "petName",
+              "petBirthday",
+              "petType",
+              "petAvatar"
+            ],
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Barsik"
+              },
+              "birthday": {
+                "type": "string",
+                "example": "2020"
+              },
+              "type": {
+                "type": "string",
+                "example": "Dog"
+              },
+              "imgUrl": {
+                "type": "string",
+                "format": "uri",
+                "example": "URL to image"
+              },
+              "comments": {
+                "type": "string",
+                "example": "This is my pet"
+              },
+              "_id": {
+                "type": "string",
+                "example": "Pet's <ID>"
+              }
+            }
+          }
+        },
         "token": {
           "type": "string",
           "example": "Bearer <token>"
@@ -705,7 +823,7 @@
       "properties": {
         "message": {
           "type": "string",
-          "example": "User with <ID> loged out"
+          "example": "User with <ID> logged out"
         }
       }
     },

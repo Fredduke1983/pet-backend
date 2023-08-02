@@ -14,8 +14,8 @@ const imgHandler = async (file, newLinkToAvatar) => {
   const { path } = file;
 
   const uploadOptions = {
-    width: 100,
-    height: 100,
+    width: 182,
+    height: 182,
     gravity: "auto",
     crop: "fill",
   };

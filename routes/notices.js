@@ -1,5 +1,5 @@
 const express = require("express");
-const { authenticate, uploadFile } = require("../middlewares");
+const { authenticate, uploadFile, isCorrectData } = require("../middlewares");
 const ctrl = require("../controllers/notices");
 
 const router = express.Router();
@@ -10,7 +10,7 @@ router.get("/search", ctrl.getNoticesWithSearchParams);
 router.get("/getfavorites", authenticate, ctrl.getFavorites);
 router.get("/:id", ctrl.getById);
 
-router.post("/add", authenticate, uploadFile(), ctrl.addNotices);
+router.post("/add", authenticate, uploadFile(), isCorrectData, ctrl.addNotices);
 
 router.delete("/delnotice/:id", authenticate, ctrl.deleteNotices);
 router.delete("/delpet/:id", authenticate, ctrl.deletePet);

@@ -1,20 +1,20 @@
 const { User } = require("../../models/userSchema");
 
 const updateFavoriteDelete = async (req, res) => {
-  const { id } = req.params;
-  const { _id } = req.user;
+  const { id: idParams } = req.params;
+  const { _id: idUser } = req.user;
 
-  const user = await User.findById(_id);
+  const user = await User.findById(idUser);
 
-  const updatedFavorites = user.favorites.filter((favId) => favId !== id);
+  const updatedFavorites = user.favorites.filter((favId) => favId !== idParams);
 
-  const updateUserFavoriteArray = await User.findByIdAndUpdate(
-    _id,
+  await User.findByIdAndUpdate(
+    idUser,
     { favorites: updatedFavorites },
     { new: true }
   );
 
-  res.status(200).json(updateUserFavoriteArray);
+  res.status(200).json(idParams);
 };
 
 module.exports = updateFavoriteDelete;

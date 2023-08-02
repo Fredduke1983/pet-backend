@@ -7,7 +7,7 @@ const addNotices = async (req, res) => {
   const objBody = { ...req.body };
   const objFile = { ...req.file };
   const { category } = req.body;
-
+  console.log(category);
   let newLinkToAvatar = req.user.avatar != null ? req.user.avatar : null;
 
   if (!Object.keys(objBody).length && !Object.keys(objFile).length) {
@@ -15,7 +15,7 @@ const addNotices = async (req, res) => {
   }
 
   const currentUserId = req.user.id;
-  const { file = null } = req;
+  const { file = null, user: userCard, body: reqBody } = req;
 
   if (file) {
     newLinkToAvatar = await imgHandler(file, newLinkToAvatar);
@@ -24,9 +24,7 @@ const addNotices = async (req, res) => {
   }
 
   if (category === "your pet") {
-    const userCard = await User.findById(currentUserId);
-
-    const newPet = { ...req.body, imgUrl: newLinkToAvatar };
+    const newPet = { ...reqBody, imgUrl: newLinkToAvatar };
 
     const updatedPets = [...userCard.pets, newPet];
 
@@ -34,7 +32,7 @@ const addNotices = async (req, res) => {
       currentUserId,
       { pets: updatedPets },
       { new: true }
-    );
+    ).select("-password");
 
     res.status(200).json(newPet);
   } else if (
@@ -43,11 +41,10 @@ const addNotices = async (req, res) => {
     category === "in good hands"
   ) {
     const addedNotice = await Notice.create({
-      ...req.body,
+      ...reqBody,
       owner: currentUserId,
       imgUrl: newLinkToAvatar,
     });
-
     res.status(200).json({
       addedNotice,
     });

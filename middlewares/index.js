@@ -1,4 +1,5 @@
 const authenticate = require("./authenticate");
+const isCorrectData = require("./isCorrectData");
 const uploadFile = require("./uploadFile");
 const { uniqueUserValidate, isEmailExist } = require("./userMiddlewares");
 
@@ -7,4 +8,5 @@ module.exports = {
   uniqueUserValidate,
   isEmailExist,
   uploadFile,
+  isCorrectData,
 };
