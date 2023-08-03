@@ -3,13 +3,13 @@ const { HttpError } = require("../utils");
 const isCorrectData = (req, res, next) => {
   const { category, name, type, comments } = req.body;
 
-  if (category && name && type && comments) return next();
-
   const isCorrectCategory =
     category === "your pet" ||
     category === "sell" ||
     category === "lost/found" ||
     category === "in good hands";
+
+  if (isCorrectCategory && name && type && comments) return next();
 
   if (!isCorrectCategory)
     throw HttpError(
