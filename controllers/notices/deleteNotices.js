@@ -2,13 +2,16 @@ const HttpError = require("../../utils/HttpError");
 const Notice = require("../../models/noticesSchema");
 
 const deleteNotices = async (req, res) => {
-  const { id: idParams  } = req.params;
+  const { id: idParams } = req.params;
   const { _id: idCurrentUser } = req.user;
   const notice = await Notice.findById(idParams);
+
+  if (!notice) throw HttpError(404, "Notice not found");
 
   if (!notice.owner) {
     throw HttpError(404, "That notice haven't owner");
   }
+
   if (notice.owner.toString() === idCurrentUser.toString()) {
     await Notice.findByIdAndRemove(idParams);
   } else {

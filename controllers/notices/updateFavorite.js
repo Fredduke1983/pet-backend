@@ -11,7 +11,7 @@ const updateFavorite = async (req, res) => {
   });
 
   if (isFavorite) {
-    res.status(200).json(user);
+    res.status(200).json(id);
   } else {
     const updatedFavorites = [...user.favorites, id];
 

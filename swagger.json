@@ -515,6 +515,15 @@
             "schema": {
               "$ref": "#/definitions/DeleteNotice"
             }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Notice not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -545,13 +554,22 @@
             "schema": {
               "$ref": "#/definitions/DeletePet"
             }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "The pet does not exist"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
     },
     "/notices/favorite/{id}": {
       "patch": {
-        "summary": "Change fav list",
+        "summary": "Add favorite notice",
         "operationId": "favorite",
         "produces": ["application/json"],
         "tags": ["notices"],
@@ -576,6 +594,15 @@
             "schema": {
               "$ref": "#/definitions/CurrentUserRes"
             }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Notice not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -1258,16 +1285,39 @@
       "properties": {
         "message": {
           "type": "string",
-          "example": "message: 'Notice deleted'"
+          "example": "{ID} deleted notice"
         }
       }
     },
     "DeletePet": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "type": "string",
-          "example": "message: 'Pet deleted'"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Barsik"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "11.11.1999"
+          },
+          "type": {
+            "type": "string",
+            "example": "Cat"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "URL to image"
+          },
+          "comments": {
+            "type": "string",
+            "example": "A Dog look for new home"
+          },
+          "_id": {
+            "type": "string",
+            "example": "Pet's <ID>"
+          }
         }
       }
     },

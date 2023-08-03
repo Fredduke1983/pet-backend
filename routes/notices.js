@@ -17,11 +17,16 @@ router.get("/:id", validateId, ctrl.getById);
 
 router.post("/add", authenticate, uploadFile(), isCorrectData, ctrl.addNotices);
 
-router.delete("/delnotice/:id", authenticate, ctrl.deleteNotices);
-router.delete("/delpet/:id", authenticate, ctrl.deletePet);
+router.delete("/delnotice/:id", authenticate, validateId, ctrl.deleteNotices);
+router.delete("/delpet/:id", authenticate, validateId, ctrl.deletePet);
 
-router.patch("/favorite/:id", authenticate, ctrl.updateFavorite);
-router.patch("/favoritedelete/:id", authenticate, ctrl.favoriteDelete);
+router.patch("/favorite/:id", authenticate, validateId, ctrl.updateFavorite);
+router.patch(
+  "/favoritedelete/:id",
+  authenticate,
+  validateId,
+  ctrl.favoriteDelete
+);
 router.patch("/:id", ctrl.updateNotices);
 
 module.exports = router;

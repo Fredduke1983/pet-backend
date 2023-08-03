@@ -10,7 +10,7 @@ const deletePet = ctrlWrapper(async (req, res) => {
   const isInclude = user.pets.some((pet) => pet._id.toString() === id);
 
   if (!isInclude) {
-    throw HttpError(404, "Pet not excist");
+    throw HttpError(404, "The pet does not exist");
   }
   const pets = user.pets.filter((pet) => pet.id !== id);
 
