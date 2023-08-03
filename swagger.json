@@ -136,7 +136,7 @@
             }
           },
           "401": {
-            "description": "No such user, login or register"
+            "description": "Unauthorized. Invalid token / No such user, login or register"
           },
           "500": {
             "description": "Server error"
@@ -173,7 +173,7 @@
             }
           },
           "401": {
-            "description": "Invalid token"
+            "description": "Unauthorized. Invalid token / No such user, login or register"
           },
           "500": {
             "description": "Server error"
@@ -244,6 +244,9 @@
           "400": {
             "description": "No data"
           },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
+          },
           "500": {
             "description": "Server error"
           }
@@ -297,6 +300,9 @@
                 "$ref": "#/definitions/NoticesUserRes"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
           },
           "500": {
             "description": "Server error"
@@ -519,6 +525,9 @@
           "400": {
             "description": "Invalid ID"
           },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
+          },
           "404": {
             "description": "Notice not found"
           },
@@ -557,6 +566,9 @@
           },
           "400": {
             "description": "Invalid ID"
+          },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
           },
           "404": {
             "description": "The pet does not exist"
@@ -597,6 +609,9 @@
           "400": {
             "description": "Invalid ID"
           },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
+          },
           "404": {
             "description": "Notice not found"
           },
@@ -636,6 +651,9 @@
           "400": {
             "description": "Invalid ID"
           },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
+          },
           "404": {
             "description": "Notice not found"
           },
@@ -671,6 +689,12 @@
                 "$ref": "#/definitions/NoticesFavoriteRes"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized. Invalid token / No such user, login or register"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -711,6 +735,12 @@
                 "$ref": "#/definitions/NewsRes"
               }
             }
+          },
+          "404": {
+            "description": "Notice not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -1408,29 +1438,80 @@
     "NewsRes": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string",
-          "example": "<newsID>"
+        "length": {
+          "type": "number",
+          "example": "1"
         },
-        "imgUrl": {
-          "type": "string",
-          "example": "<URL> to image"
-        },
-        "title": {
-          "type": "string",
-          "example": "Help! My Parrot Was Rejected..."
-        },
-        "text": {
-          "type": "string",
-          "example": "A gate agent suddenly objected..."
-        },
-        "date": {
-          "type": "string",
-          "example": "2023-04-11T09:00:18+0000"
-        },
-        "url": {
-          "type": "string",
-          "example": "https://www.nytimes.com/2023/04/07/health/vet-pet-health-telemedicine.…"
+        "news": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "string",
+                "example": "10000UAH"
+              },
+
+              "_id": {
+                "type": "string",
+                "example": "<noticeID>"
+              },
+              "imgUrl": {
+                "type": "string",
+                "example": "<URL> to image"
+              },
+              "title": {
+                "type": "string",
+                "example": "Help! My Parrot Was Rejected..."
+              },
+              "text": {
+                "type": "string",
+                "example": "A gate agent suddenly objected..."
+              },
+              "___": {
+                "type": "string",
+                "example": "Junior"
+              },
+              "breed": {
+                "type": "string",
+                "example": "Golden Retriever"
+              },
+              "type": {
+                "type": "string",
+                "example": "Cat"
+              },
+              "place": {
+                "type": "string",
+                "example": "Kiyv"
+              },
+
+              "birthday": {
+                "type": "string",
+                "example": "11.11.1999"
+              },
+              "category": {
+                "type": "string",
+                "example": "your pet/sell/lost/found/in good hands"
+              },
+
+              "sex": {
+                "type": "string",
+                "example": "female"
+              },
+              "email": {
+                "type": "string",
+                "example": "junior@junior.com"
+              },
+              "phone": {
+                "type": "string",
+                "example": "(050)0000000"
+              },
+              "favorite": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
         }
       }
     }
