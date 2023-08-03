@@ -736,9 +736,6 @@
               }
             }
           },
-          "404": {
-            "description": "Notice not found"
-          },
           "500": {
             "description": "Server error"
           }
@@ -1468,47 +1465,17 @@
                 "type": "string",
                 "example": "A gate agent suddenly objected..."
               },
-              "___": {
+              "date": {
                 "type": "string",
-                "example": "Junior"
+                "example": "2023-04-11T09:00:18+0000"
               },
-              "breed": {
+              "url": {
                 "type": "string",
-                "example": "Golden Retriever"
+                "example": "{URL} of news"
               },
-              "type": {
+              "id": {
                 "type": "string",
-                "example": "Cat"
-              },
-              "place": {
-                "type": "string",
-                "example": "Kiyv"
-              },
-
-              "birthday": {
-                "type": "string",
-                "example": "11.11.1999"
-              },
-              "category": {
-                "type": "string",
-                "example": "your pet/sell/lost/found/in good hands"
-              },
-
-              "sex": {
-                "type": "string",
-                "example": "female"
-              },
-              "email": {
-                "type": "string",
-                "example": "junior@junior.com"
-              },
-              "phone": {
-                "type": "string",
-                "example": "(050)0000000"
-              },
-              "favorite": {
-                "type": "boolean",
-                "example": false
+                "example": "{id} of news"
               }
             }
           }
