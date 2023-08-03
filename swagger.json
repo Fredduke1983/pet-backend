@@ -152,7 +152,7 @@
         "tags": ["users"],
         "parameters": [
           {
-            "name": "notices",
+            "name": "Current user",
             "description": "Fetch of current user. Bearer token must have in the format 'Bearer {token}'"
           }
         ],
@@ -168,9 +168,15 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "$ref": "#/definitions/CurrentUserRes"
+                "$ref": "#/definitions/UserRes"
               }
             }
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -232,8 +238,14 @@
           "200": {
             "description": "User updated successfully",
             "schema": {
-              "$ref": "#/definitions/CurrentUserRes"
+              "$ref": "#/definitions/UserRes"
             }
+          },
+          "400": {
+            "description": "No data"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -244,18 +256,16 @@
         "operationId": "getAllNotices",
         "produces": ["application/json"],
         "tags": ["notices"],
-        "parameters": [
-          {
-            "name": "notices",
-            "description": "Fetch all notices"
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "Notices response",
             "schema": {
-              "$ref": "#/definitions/NoticesRes"
+              "$ref": "#/definitions/NoticesAllRes"
             }
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -269,7 +279,7 @@
         "parameters": [
           {
             "name": "notices",
-            "description": "Fetch all notices of current user. Bearer token must have in the format 'Bearer {token}'"
+            "description": "Get all notices of current user. Bearer token must have in the format 'Bearer {token}'"
           }
         ],
         "security": [
@@ -284,9 +294,12 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "$ref": "#/definitions/NoticesRes"
+                "$ref": "#/definitions/NoticesUserRes"
               }
             }
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -329,9 +342,12 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/NoticesRes"
+                "$ref": "#/definitions/NoticesSearchRes"
               }
             }
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -355,8 +371,14 @@
           "200": {
             "description": "Notices response",
             "schema": {
-              "$ref": "#/definitions/NoticesRes"
+              "$ref": "#/definitions/NoticesAllRes"
             }
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -377,14 +399,14 @@
             "name": "category",
             "in": "formData",
             "type": "string",
-            "description": "Category of notice (your pet/sell/lost/good hands)",
+            "description": "The notification Category must be one of the following: 'your pet/sell/lost/in good hands'",
             "required": true
           },
           {
             "name": "name",
             "in": "formData",
             "type": "string",
-            "required": false,
+            "required": true,
             "description": "The name of pet"
           },
           {
@@ -398,14 +420,14 @@
             "name": "type",
             "in": "formData",
             "type": "string",
-            "required": false,
+            "required": true,
             "description": "Type of pet (dog, cat e.g.)"
           },
           {
             "name": "comments",
             "in": "formData",
             "type": "string",
-            "required": false,
+            "required": true,
             "description": "Comments of notice"
           },
           {
@@ -454,6 +476,15 @@
                 { "$ref": "#/definitions/NoticesResPet" }
               ]
             }
+          },
+          "400": {
+            "description": "Field CATEGORY is required and must have 'your pet' or 'sell' or 'lost/found' or 'in good hands' / Fields CATEGORY, NAME, TYPE and COMMENTS are required"
+          },
+          "401": {
+            "description": "You do not have access to the database"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -917,14 +948,148 @@
         }
       }
     },
-    "NoticesRes": {
+    "NoticesAllRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "string",
+            "example": "10000UAH"
+          },
+          "_id": {
+            "type": "string",
+            "example": "<noticeID>"
+          },
+          "name": {
+            "type": "string",
+            "example": "Junior"
+          },
+          "breed": {
+            "type": "string",
+            "example": "Red parrot"
+          },
+          "type": {
+            "type": "string",
+            "example": "Cat"
+          },
+          "place": {
+            "type": "string",
+            "example": "Kiyv"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "<URL> to image"
+          },
+          "title": {
+            "type": "string",
+            "example": "Help! My Parrot Was Rejected..."
+          },
+
+          "birthday": {
+            "type": "string",
+            "example": "11.11.1999"
+          },
+          "category": {
+            "type": "string",
+            "example": "your pet/sell/lost/found/in good hands"
+          },
+          "sex": {
+            "type": "string",
+            "example": "female"
+          },
+          "email": {
+            "type": "string",
+            "example": "junior@junior.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "(050)0000000"
+          },
+          "favorite": {
+            "type": "boolean",
+            "example": false
+          },
+          "comments": {
+            "type": "string",
+            "example": "A gate agent suddenly objected..."
+          }
+        }
+      }
+    },
+    "NoticesUserRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "<noticeID>"
+          },
+          "name": {
+            "type": "string",
+            "example": "Junior"
+          },
+          "location": {
+            "type": "string",
+            "example": "Kiyv"
+          },
+          "imgUrl": {
+            "type": "string",
+            "example": "<URL> to image"
+          },
+          "title": {
+            "type": "string",
+            "example": "Help! My Parrot Was Rejected..."
+          },
+          "comments": {
+            "type": "string",
+            "example": "A gate agent suddenly objected..."
+          },
+          "birthday": {
+            "type": "string",
+            "example": "11.11.1999"
+          },
+
+          "category": {
+            "type": "string",
+            "example": "your pet/sell/lost/found/in good hands"
+          },
+          "type": {
+            "type": "string",
+            "example": "Cat"
+          },
+          "price": {
+            "type": "string",
+            "example": "10000UAH"
+          },
+          "sex": {
+            "type": "string",
+            "example": "female"
+          },
+          "email": {
+            "type": "string",
+            "example": "junior@junior.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "(050)0000000"
+          },
+          "owner": {
+            "type": "string",
+            "example": "Owner {ID}"
+          }
+        }
+      }
+    },
+    "NoticesSearchRes": {
       "type": "object",
       "properties": {
         "length": {
           "type": "string",
           "example": "1"
         },
-        "favNotices": {
+        "notices": {
           "type": "array",
           "items": {
             "type": "object",
@@ -933,6 +1098,7 @@
                 "type": "string",
                 "example": "10000UAH"
               },
+
               "_id": {
                 "type": "string",
                 "example": "<noticeID>"
@@ -943,7 +1109,11 @@
               },
               "breed": {
                 "type": "string",
-                "example": "Red parrot"
+                "example": "Golden Retriever"
+              },
+              "type": {
+                "type": "string",
+                "example": "Cat"
               },
               "place": {
                 "type": "string",
@@ -957,10 +1127,6 @@
                 "type": "string",
                 "example": "Help! My Parrot Was Rejected..."
               },
-              "comments": {
-                "type": "string",
-                "example": "A gate agent suddenly objected..."
-              },
               "birthday": {
                 "type": "string",
                 "example": "11.11.1999"
@@ -969,6 +1135,7 @@
                 "type": "string",
                 "example": "your pet/sell/lost/found/in good hands"
               },
+
               "sex": {
                 "type": "string",
                 "example": "female"
@@ -980,6 +1147,14 @@
               "phone": {
                 "type": "string",
                 "example": "(050)0000000"
+              },
+              "favorite": {
+                "type": "boolean",
+                "example": false
+              },
+              "comments": {
+                "type": "string",
+                "example": "A gate agent suddenly objected..."
               }
             }
           }
@@ -1014,55 +1189,67 @@
     },
     "NoticesResUser": {
       "type": "object",
-      "required": true,
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "Barsik"
-        },
-        "imgUrl": {
-          "type": "string",
-          "example": "URL to image"
-        },
-        "title": {
-          "type": "string",
-          "example": "Help! My Parrot Was Rejected..."
-        },
-        "birthday": {
-          "type": "string",
-          "example": "11.11.2020"
-        },
-        "category": {
-          "type": "string",
-          "example": "your pet/sell/lost/found/in good hands"
-        },
-        "price": {
-          "type": "string",
-          "example": "10000UAH"
-        },
-        "sex": {
-          "type": "string",
-          "example": "male/female"
-        },
-        "email": {
-          "type": "string",
-          "example": "junior@junior.com"
-        },
-        "phone": {
-          "type": "string",
-          "example": "(050)0000000"
-        },
-        "type": {
-          "type": "string",
-          "example": "Dog"
-        },
-        "comments": {
-          "type": "string",
-          "example": "A Dog look for new home"
-        },
-        "location": {
-          "type": "string",
-          "example": "Kiyv"
+        "addedNotice": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Barsik"
+            },
+            "location": {
+              "type": "string",
+              "example": "Kiyv"
+            },
+            "imgUrl": {
+              "type": "string",
+              "example": "URL to image"
+            },
+            "title": {
+              "type": "string",
+              "example": "Help! My Parrot Was Rejected..."
+            },
+            "comments": {
+              "type": "string",
+              "example": "A Dog look for new home"
+            },
+            "birthday": {
+              "type": "string",
+              "example": "11.11.2020"
+            },
+            "category": {
+              "type": "string",
+              "example": "your pet/sell/lost/found/in good hands"
+            },
+            "type": {
+              "type": "string",
+              "example": "Dog"
+            },
+            "price": {
+              "type": "string",
+              "example": "10000UAH"
+            },
+            "sex": {
+              "type": "string",
+              "example": "male/female"
+            },
+            "email": {
+              "type": "string",
+              "example": "junior@junior.com"
+            },
+            "phone": {
+              "type": "string",
+              "example": "(050)0000000"
+            },
+            "owner": {
+              "type": "string",
+              "example": "Owner {ID}"
+            },
+            "_id": {
+              "type": "string",
+              "example": "<noticeID>"
+            }
+          }
         }
       }
     },

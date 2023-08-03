@@ -7,7 +7,7 @@ const addNotices = async (req, res) => {
   const objBody = { ...req.body };
   const objFile = { ...req.file };
   const { category } = req.body;
-  console.log(category);
+
   let newLinkToAvatar = req.user.avatar != null ? req.user.avatar : null;
 
   if (!Object.keys(objBody).length && !Object.keys(objFile).length) {
@@ -35,13 +35,10 @@ const addNotices = async (req, res) => {
     ).select("-password");
 
     res.status(200).json(newPet);
-  } else if (
-    category === "sell" ||
-    category === "lost/found" ||
-    category === "in good hands"
-  ) {
+  } else {
     const addedNotice = await Notice.create({
       ...reqBody,
+      email: req.user.email,
       owner: currentUserId,
       imgUrl: newLinkToAvatar,
     });
