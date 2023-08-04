@@ -113,16 +113,6 @@
         "operationId": "logoutUser",
         "produces": ["application/json"],
         "tags": ["users"],
-        "parameters": [
-          {
-            "name": "Logout",
-            "in": "header",
-            "type": "string",
-            "description": "Bearer token must have in the format 'Bearer {token}'",
-            "allowEmptyValue": false,
-            "readOnly": true
-          }
-        ],
         "security": [
           {
             "BearerAuth": []
@@ -150,12 +140,6 @@
         "operationId": "getCurrentUser",
         "produces": ["application/json"],
         "tags": ["users"],
-        "parameters": [
-          {
-            "name": "Current user",
-            "description": "Fetch of current user. Bearer token must have in the format 'Bearer {token}'"
-          }
-        ],
         "security": [
           {
             "BearerAuth": []
@@ -279,12 +263,6 @@
         "operationId": "getAllNoticesCurrentUser",
         "produces": ["application/json"],
         "tags": ["notices"],
-        "parameters": [
-          {
-            "name": "notices",
-            "description": "Get all notices of current user. Bearer token must have in the format 'Bearer {token}'"
-          }
-        ],
         "security": [
           {
             "BearerAuth": []
@@ -467,7 +445,7 @@
           {
             "name": "price",
             "in": "formData",
-            "type": "string",
+            "type": "number",
             "required": false,
             "description": "Price of pet (Number)"
           }
@@ -669,12 +647,6 @@
         "operationId": "searchNews",
         "produces": ["application/json"],
         "tags": ["notices"],
-        "parameters": [
-          {
-            "description": "Bearer token must have in the format 'Bearer {token}'",
-            "type": "string"
-          }
-        ],
         "security": [
           {
             "BearerAuth": []
@@ -733,6 +705,28 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/NewsRes"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/sponsors/getall": {
+      "get": {
+        "summary": "Get all partners",
+        "operationId": "searchNews",
+        "produces": ["application/json"],
+        "tags": ["sponsors"],
+        "responses": {
+          "200": {
+            "description": "Get results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SponsorRes"
               }
             }
           },
@@ -1015,8 +1009,8 @@
         "type": "object",
         "properties": {
           "price": {
-            "type": "string",
-            "example": "10000UAH"
+            "type": "number",
+            "example": "10000"
           },
           "_id": {
             "type": "string",
@@ -1121,8 +1115,8 @@
             "example": "Cat"
           },
           "price": {
-            "type": "string",
-            "example": "10000UAH"
+            "type": "number",
+            "example": "10000"
           },
           "sex": {
             "type": "string",
@@ -1147,7 +1141,7 @@
       "type": "object",
       "properties": {
         "length": {
-          "type": "string",
+          "type": "number",
           "example": "1"
         },
         "notices": {
@@ -1156,8 +1150,8 @@
             "type": "object",
             "properties": {
               "price": {
-                "type": "string",
-                "example": "10000UAH"
+                "type": "number",
+                "example": "10000"
               },
 
               "_id": {
@@ -1287,8 +1281,8 @@
               "example": "Dog"
             },
             "price": {
-              "type": "string",
-              "example": "10000UAH"
+              "type": "number",
+              "example": "10000"
             },
             "sex": {
               "type": "string",
@@ -1445,8 +1439,8 @@
             "type": "object",
             "properties": {
               "price": {
-                "type": "string",
-                "example": "10000UAH"
+                "type": "number",
+                "example": "10000"
               },
 
               "_id": {
@@ -1479,6 +1473,63 @@
               }
             }
           }
+        }
+      }
+    },
+    "SponsorRes": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "<sponsorID>"
+        },
+        "title": {
+          "type": "string",
+          "example": "Welcome! ..."
+        },
+        "url": {
+          "type": "string",
+          "example": "{URL} of sponsor"
+        },
+        "addressUrl": {
+          "type": "string",
+          "example": "{URL} of sponsor address "
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "{URL} to image"
+        },
+        "address": {
+          "type": "string",
+          "example": "Fedorivka, Kyiv Oblast"
+        },
+        "workDays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "isOpen": {
+                "type": "boolean",
+                "example": false
+              },
+              "from": {
+                "type": "string",
+                "example": "11:00"
+              },
+              "to": {
+                "type": "string",
+                "example": "16:00"
+              }
+            }
+          }
+        },
+        "phone": {
+          "type": "string",
+          "example": "(050)0000000"
+        },
+        "email": {
+          "type": "string",
+          "example": "sponsor@mail.com"
         }
       }
     }
