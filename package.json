@@ -34,7 +34,7 @@
     "nodemon": "2.0.15"
   },
   "engines": {
-    "node": ">=14.20.1"
+    "node": "18.0.0"
   },
   "author": "",
   "license": "ISC"
